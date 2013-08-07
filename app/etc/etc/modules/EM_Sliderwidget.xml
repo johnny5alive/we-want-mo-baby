@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <EM_Sliderwidget>
+            <active>true</active>
+           <codePool>local</codePool>
+       </EM_Sliderwidget>
+    </modules>
+</config>

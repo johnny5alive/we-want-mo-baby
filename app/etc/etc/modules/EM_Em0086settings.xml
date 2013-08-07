@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <EM_Em0086settings>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <EM_Themeframework />
+            </depends>
+        </EM_Em0086settings>
+    </modules>
+</config>

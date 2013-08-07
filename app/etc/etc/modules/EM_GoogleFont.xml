@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <EM_GoogleFont>
+            <active>true</active>
+            <codePool>local</codePool>
+        </EM_GoogleFont>
+    </modules>
+</config> 
