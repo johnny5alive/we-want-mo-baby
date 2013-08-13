@@ -1,0 +1,14 @@
+<?php
+if ($this->isEnabled() && Mage::helper('customerreward')->getEarnConfig('review') && Mage::helper('customerreward')->getDisplayConfig('review')) {
+    ?>
+    <script type = "text/javascript">
+        //<![CDATA[
+        if($('product_addtocart_form') && $('product_addtocart_form').down('.product-shop') && $('product_addtocart_form').down('.product-shop').down('.nobr')){
+            var eladd=$('product_addtocart_form').down('.product-shop').down('.nobr');
+            eladd.insert({
+                after: '<div class="customerreward-product-view"><div class="customerreward-checkout-action"><?php echo $this->getRewardViewProductInFo() ?>'+'<?php echo Mage::helper('customerreward')->getIcon() ?></div></div>'
+            });
+        }
+        //]]>
+    </script>
+<?php } ?>

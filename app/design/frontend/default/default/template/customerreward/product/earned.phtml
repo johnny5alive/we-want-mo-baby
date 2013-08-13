@@ -1,0 +1,22 @@
+<?php
+/**
+ * Show earned points for product
+ * 
+ * @see Magestore_Customerreward_Block_Product_Earned
+ */
+?>
+<?php $_earningPoints = $this->getEarningPoint() ?>
+<?php if ($_earningPoints): ?>
+<div class="divider"></div>
+<div class="rewardpoints_product_earning">
+    <?php
+        if ($_earningPoints == 1) {
+            $_pointName = $this->__('Point');
+        } else {
+            $_pointName = $this->__('Points');
+        }
+    ?>
+    <?php echo $this->helper('customerreward')->getIconImage() ?>
+    <?php echo $this->__("You will earn %d %s for buying this product", $_earningPoints, $_pointName) ?>
+</div>
+<?php endif ?>

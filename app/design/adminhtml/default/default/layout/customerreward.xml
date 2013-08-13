@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <customerrewardadmin_adminhtml_rule_index>
+        <reference name="content">
+            <block type="customerreward/adminhtml_rule" name="customerreward_rule" />
+        </reference>
+    </customerrewardadmin_adminhtml_rule_index>
+    <customerrewardadmin_adminhtml_rate_index>
+		<reference name="content">
+            <block type="customerreward/adminhtml_rate" name="customerreward_rate" />
+        </reference>
+	</customerrewardadmin_adminhtml_rate_index>
+	<customerrewardadmin_adminhtml_transaction_index>
+		<reference name="content">
+            <block type="customerreward/adminhtml_transaction" name="customerreward_transaction" />
+        </reference>
+	</customerrewardadmin_adminhtml_transaction_index>
+	<customerrewardadmin_adminhtml_offer_index>
+		<reference name="content">
+            <block type="customerreward/adminhtml_offer" name="customerreward_offer" />
+        </reference>
+	</customerrewardadmin_adminhtml_offer_index>
+	<customerrewardadmin_adminhtml_offer_products>
+		<block type="core/text_list" name="root">
+			<block type="customerreward/adminhtml_offer_edit_tab_product" name="program.edit.tab.product"/>
+            <block type="adminhtml/widget_grid_serializer" name="related_grid_serializer">
+				<action method="initSerializerBlock">
+					<grid_block_name>program.edit.tab.product</grid_block_name>
+					<data_callback>getSelectedOfferProducts</data_callback>
+					<hidden_input_name>offer_product</hidden_input_name>
+					<reload_param_name>oproduct</reload_param_name>
+				</action>
+				<action method="addColumnInputName">
+					<input_name>position</input_name>
+				</action>
+            </block>
+		</block>
+	</customerrewardadmin_adminhtml_offer_products>
+	<customerrewardadmin_adminhtml_offer_productsgrid>
+		<block type="core/text_list" name="root">
+			<block type="customerreward/adminhtml_offer_edit_tab_product" name="program.edit.tab.product"/>
+		</block>
+	</customerrewardadmin_adminhtml_offer_productsgrid>
+	
+	<adminhtml_sales_order_view>
+		<reference name="order_totals">
+			<block type="customerreward/adminhtml_sales_order_items" name="customerreward.sales.order.items" />
+			<block type="customerreward/adminhtml_sales_order_totals" name="customerreward.sales.order.totals" />
+			<block type="customerreward/adminhtml_sales_order_offer" name="customerreward.sales.order.offer" />
+            <block type="customerreward/adminhtml_sales_order_labels" name="customerreward.sales.order.labels" />
+		</reference>
+	</adminhtml_sales_order_view>
+	
+	<adminhtml_sales_order_invoice_new>
+		<reference name="invoice_totals">
+			<block type="customerreward/adminhtml_sales_order_items" name="customerreward.sales.order.items" />
+			<block type="customerreward/adminhtml_sales_order_invoice_totals" name="customerreward.sales.order.totals" />
+			<block type="customerreward/adminhtml_sales_order_offer" name="customerreward.sales.order.offer" />
+		</reference>
+	</adminhtml_sales_order_invoice_new>
+	<adminhtml_sales_order_invoice_view>
+		<reference name="invoice_totals">
+			<block type="customerreward/adminhtml_sales_order_items" name="customerreward.sales.order.items" />
+			<block type="customerreward/adminhtml_sales_order_invoice_totals" name="customerreward.sales.order.totals" />
+			<block type="customerreward/adminhtml_sales_order_offer" name="customerreward.sales.order.offer" />
+		</reference>
+	</adminhtml_sales_order_invoice_view>
+	
+	<adminhtml_customer_edit>
+		<reference name="customer_edit_tabs">
+			<action method="addTab"><name>customerreward_tab</name><block>customerreward/adminhtml_customer_tab_customerreward</block></action>
+		</reference>
+	</adminhtml_customer_edit>
+	
+	
+	
+	<adminhtml_sales_order_creditmemo_new>
+		<reference name="creditmemo_totals">
+			<block type="customerreward/adminhtml_sales_order_items" name="customerreward.sales.order.items" />
+			<block type="customerreward/adminhtml_sales_order_creditmemo_totals" name="customerreward.totals.points" />
+			<block type="customerreward/adminhtml_sales_order_offer" name="customerreward.sales.order.offer" />
+		</reference>
+		<reference name="submit_before">
+			<block type="customerreward/adminhtml_sales_order_creditmemo_reward" name="customerreward.totals.points" template="customerreward/creditmemo/reward.phtml" />
+		</reference>
+	</adminhtml_sales_order_creditmemo_new>
+	<adminhtml_sales_order_creditmemo_updateqty>
+		<reference name="creditmemo_totals">
+			<block type="customerreward/adminhtml_sales_order_items" name="customerreward.sales.order.items" />
+			<block type="customerreward/adminhtml_sales_order_creditmemo_totals" name="customerreward.totals.points" />
+			<block type="customerreward/adminhtml_sales_order_offer" name="customerreward.sales.order.offer" />
+		</reference>
+		<reference name="submit_before">
+			<block type="customerreward/adminhtml_sales_order_creditmemo_reward" name="customerreward.totals.points" template="customerreward/creditmemo/reward.phtml" />
+		</reference>
+	</adminhtml_sales_order_creditmemo_updateqty>
+	
+	<adminhtml_sales_order_creditmemo_view>
+		<reference name="creditmemo_totals">
+			<block type="customerreward/adminhtml_sales_order_items" name="customerreward.sales.order.items" />
+			<block type="customerreward/adminhtml_sales_order_creditmemo_totals" name="customerreward.totals.points" />
+			<block type="customerreward/adminhtml_sales_order_offer" name="customerreward.sales.order.offer" />
+		</reference>
+	</adminhtml_sales_order_creditmemo_view>
+    
+    
+    <customerrewardadmin_adminhtml_earning_behavior_index>
+        <reference name="left">
+            <block type="customerreward/adminhtml_system_configuration_switcher" name="adminhtml.system.config.switcher" before="-" />
+        </reference>
+    </customerrewardadmin_adminhtml_earning_behavior_index>
+    
+    <customerrewardadmin_adminhtml_report_dashboard_index>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/magestore/customerreward.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="customerreward/adminhtml_report_dashboard" name="customerreward.report.dashboard">
+            	<block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher" template="store/switcher.phtml">
+            		<action method="setUseConfirm"><value>0</value></action>
+            	</block>
+            </block>
+        </reference>
+    </customerrewardadmin_adminhtml_report_dashboard_index>
+    
+    <!-- Backend create order -->
+    <adminhtml_sales_order_create_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>magestore/customerreward.js</script>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/magestore/customerreward.js</name>
+                <params/>
+            </action>
+            <action method="addCss">
+                <stylesheet>css/magestore/customerreward.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="items_grid">
+            <block type="customerreward/adminhtml_order_form" template="customerreward/order/form.phtml" name="customerreward.rule" />
+        </reference>
+    </adminhtml_sales_order_create_index>
+    <adminhtml_sales_order_create_load_block_data>
+        <reference name="items_grid">
+            <block type="customerreward/adminhtml_order_form" template="customerreward/order/form.phtml" name="customerreward.rule" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_data>
+    <adminhtml_sales_order_create_load_block_items>
+        <reference name="items_grid">
+            <block type="customerreward/adminhtml_order_form" template="customerreward/order/form.phtml" name="customerreward.rule" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_items>
+</layout>

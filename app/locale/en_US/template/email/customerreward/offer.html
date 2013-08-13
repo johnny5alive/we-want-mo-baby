@@ -1,0 +1,81 @@
+<!--@subject {{var store.getFrontendName()}}: {{var offer.getTitle()}} @-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="width:670px;margin:5px 0;padding:20px 20px 20px 20px;background-color:#86ad53;background-repeat:no-repeat;border-width:5px;border-style:solid;border-color:#deedcc">
+<p style="color:#313131;margin-top:0px;font-size:13px;font-family:Helvetica, Arial, sans-serif">
+<b>Dear {{var name}},</b><br/>
+We are glad to inform that your friend - {{var sender_name}} has sent you {{if offer.getCoupon()}}a coupon{{else}}an offer{{/if}} from {{var store.getFrontendName()}}.
+{{if offer.getCoupon()}}
+<br />
+Coupon code: <strong style="color:#0981BE;">{{var offer.getCoupon()}}</strong>
+{{/if}}
+<br/>
+Here is his (her) message:<br/>
+<span style="margin:0 0 0 20px;display:block;"><i>
+{{var message}}
+</i></span>
+</p>
+  <table width="100%" cellspacing="0" cellpadding="0" style="background-color:#fff">
+    <tbody><tr>
+      <td colspan="2">
+        <div style="min-height:104px;margin:0;border-bottom:4px solid #4B8B9B">
+          <table width="670px" height="104px" cellspacing="0" cellpadding="0" bgcolor="#545454">
+            <tbody><tr>
+              <td valign="top" style="width:110px;min-height:37px;padding:18px 0 0 15px">
+				<a href="{{store url=""}}"><img src="{{skin url="images/logo.png" _area='frontend'}}" alt="{{var store.getFrontendName()}}"  style="margin-bottom:10px;" border="0"/></a>
+              </td>
+              <td valign="top" style="padding-left:15px;width:250px;padding-top:16px">
+              </td>
+              <td valign="top" align="right" style="padding-right:20px;padding-top:16px">
+                <table width="225px;" cellspacing="0" cellpadding="0">
+                  <tbody><tr>
+                    <td align="right" style="margin:0;color:#fff;font-size:12px;font-family:Helvetica, Arial, sans-serif">
+						{{var offer.getCurrentDate()}}
+                    </td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+          </tbody></table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" style="padding:20px 0 25px 0;border-top:10px solid #4BC1DE">
+        <table width="100%" cellspacing="0" cellpadding="0">
+		<tbody><tr>
+		  <td colspan="2">
+			<h1 style="margin:0;padding:0 20px 20px 20px">
+				<a href="{{var url}}" style="text-decoration:none;color:#0981be;font-size:26px;font-weight:700;font-family:Helvetica, Arial, sans-serif;margin:0" target="_blank">
+					{{var offer.getTitleHtml()}}
+				</a>
+			</h1>
+		  </td>
+		</tr>
+        <tr>
+            <td colspan="2">
+				<div style="float:left; margin: 0 0 0 20px;">
+					<a href="{{var url}}" style="text-decoration:none;">
+						<img border="0" src="{{var offer.getImageUrl()}}" />
+					</a>
+				</div>
+				<div style="float:left; margin: 0 0 0 20px; color:#313131;font-family:Helvetica, Arial, sans-serif; font-size:13px;">
+				{{var offer.getDescription()}}
+				</div>
+            </td>
+        </tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+  <table width="100%" style="background-color:#deedcc;margin-top:2px">
+    <tbody><tr>
+      <td style="font-family:Helvetica, Arial, sans-serif;color:#545454;font-weight:700;font-size:12px;text-align:center;line-height:16px;padding:10px">
+        Need help? Have feedback? Feel free to contact us at 
+        <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+      </td>
+    </tr>
+  </tbody></table>
+</div>

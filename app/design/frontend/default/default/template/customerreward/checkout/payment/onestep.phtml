@@ -1,0 +1,410 @@
+<?php
+	/**
+	 * Payment method for one step checkout template 
+	 */
+?>
+<div class="onestepcheckout-payment-methods">
+	<dl class="sp-methods" id="checkout-payment-method-load">
+
+
+<?php $customerrewardEnabled = $this->enableReward() ?>
+<?php if ($customerrewardEnabled): ?>
+<?php $_sliderRules = $this->getSliderRules() ?>
+<?php $_checkboxRules = $this->getCheckboxRules() ?>
+
+<?php if (count($_sliderRules) || (count($_checkboxRules))): ?>
+    <dt>
+        <input id="customerreward_payment_method" type="checkbox" title="<?php echo $this->__('Spend Your Points') ?>" <?php if ($this->isUsePoint()): ?> checked="checked"<?php endif ?> onchange="changeUsePointAjax(this)" />
+        <label for="customerreward_payment_method"><?php echo $this->__('Spend Your Points') ?></label>
+    </dt>
+    <dd>
+    <div id="cart-rewards-form"<?php if (!$this->isUsePoint()): ?> style="display: none;"<?php endif ?>>
+        <dl class="form-list rewards-sales-rules">
+            <?php if (count($_sliderRules)): ?>
+                <?php $_sliderData = $this->getSliderData() ?>
+            <dt>
+                <label><?php echo $this->__('Choose how many points to spend') ?>:</label>
+            </dt>
+            <dd class="rewards-slider">
+                <?php if (count($_sliderRules) == 1): ?>
+                <?php $_rule = current($_sliderRules) ?>
+                    <input id="reward_sales_rule" name="reward_sales_rule" type="hidden" value="<?php echo $_rule->getId() ?>" />
+                    <span>
+                        <?php if ($_rule->getId() == 'rate'): ?>
+                            <?php echo $this->__('Each %d point get %s discount', $_rule->getPointsSpended(), $this->formatDiscount($_rule)) ?>
+                        <?php else: ?>
+                            <?php echo $this->escapeHtml($_rule->getName()) ?>
+                            (<?php echo $this->__('With %d', $_rule->getPointsSpended()) ?>
+                            <?php echo ($_rule->getPointsSpended() == 1) ? $this->__('Point') : $this->__('Points') ?>)
+                        <?php endif ?>
+                    </span>
+                <?php else: ?>
+                <div class="reward-rules">
+                    <span><?php echo $this->__('Use Your Points') ?>:</span>
+                    <select id="reward_sales_rule" name="reward_sales_rule" class="input-select">
+                    <?php foreach ($_sliderRules as $_rule): ?>
+                        <option value="<?php echo $_rule->getId() ?>"<?php if ($_rule->getId() == $_sliderData->getRuleId()): ?> selected="selected"<?php endif ?>>
+                            <?php if ($_rule->getId() == 'rate'): ?>
+                                <?php echo $this->__('Each %d point get %s discount', $_rule->getPointsSpended(), $this->formatDiscount($_rule)) ?>
+                            <?php else: ?>
+                                <?php echo $this->escapeHtml($_rule->getName()) ?>
+                                (<?php echo $this->__('With %d', $_rule->getPointsSpended()) ?>
+                                <?php echo ($_rule->getPointsSpended() == 1) ? $this->__('Point') : $this->__('Points') ?>)
+                            <?php endif ?>
+                        </option>
+                    <?php endforeach ?>
+                    </select>
+                </div>
+                <?php endif ?>
+                <div id="customerreward-needmore-msg" style="display: none;">
+                    <?php echo $this->__('You need to earn more') ?>
+                    <span id="customerreward-needmore-points">100</span>
+                    <?php echo $this->__('point(s) to use this rule.') ?>
+                    <?php echo $this->__('Please click') ?>
+                    <a href="<?php echo Mage::helper('customerreward')->getInfoLink() ?>"><?php echo $this->__('here') ?></a>
+                    <?php echo $this->__('to learn about it.') ?>
+                </div>
+                <div id="customerreward-slider-container" style="display: none;">
+                    <div id="customerreward-slider">
+                        <div id="customerreward-slider-zoom-out"><img src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_out.gif') ?>" alt="<?php echo $this->__('Zoom Out') ?>" title="<?php echo $this->__('Zoom Out') ?>" /></div>
+                        <div id="customerreward-track">
+                            <div id="customerreward-handle"></div>
+                        </div>
+                        <div id="customerreward-slider-zoom-in"><img src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_in.gif') ?>" alt="<?php echo $this->__('Zoom In') ?>" title="<?php echo $this->__('Zoom In') ?>" /></div>
+                    </div>
+                    <div class="customerreward-slider-input">
+                        <div class="input-point">
+                            <span>
+                                <?php echo $this->__('You will spend') ?>
+                                <input type="text" class="input-text" id="reward_sales_point" name="reward_sales_point" value="0" />
+                                <?php echo $this->__('points') ?>
+                            </span>
+                        </div>
+                        <div class="input-max">
+                            <input type="checkbox" id="reward_max_points_used" />
+                            <label for="reward_max_points_used">
+                                <?php echo $this->__('Maximize my discount with points') ?>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="reward_ajax_total" style="display: none;">
+                    <div id="reward_ajax_loading">
+                        <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" alt="" /> &nbsp; <?php echo $this->__('Loading total') ?>...
+                    </div>
+                    <div id="reward_ajax_container"></div>
+                </div>
+            </dd>
+    <script type="text/javascript">
+        var rewardSliderRules = <?php echo $this->getRulesJson($_sliderRules) ?>;
+    if (typeof currentRuleOptions == 'undefined') {
+        var currentRuleOptions = {};
+        function changeRewardSalesRule(el) {
+            var ruleId = el.value;
+            if (ruleId) {
+                currentRuleOptions = rewardSliderRules[ruleId];
+                switch (currentRuleOptions.optionType) {
+                    case 'needPoint':
+                        showRewardInfo('customerreward-needmore-msg');
+                        $('customerreward-needmore-points').innerHTML = currentRuleOptions.needPoint;
+                        break;
+                    case 'slider':
+                        showRewardInfo('customerreward-slider-container');
+                        rewardSlider.applyOptions(currentRuleOptions.sliderOption);
+                        break;
+                }
+            } else {
+                showRewardInfo('');
+            }
+        }
+        var currentPointUsed = <?php echo $_sliderData->getUsePoint() ? $_sliderData->getUsePoint() : '0' ?>;
+        var currentRuleUsed = $('reward_sales_rule').value;
+        var disableRewardAjax = true;
+        function changePointCallback(points) {
+            if (points == rewardSlider.maxPoints) {
+                $('reward_max_points_used').checked = true;
+            } else {
+                $('reward_max_points_used').checked = false;
+            }
+            if (currentPointUsed == rewardSlider.slider.value
+                && currentRuleUsed == $('reward_sales_rule').value
+            ) {
+                return false;
+            }
+            currentPointUsed = rewardSlider.slider.value;
+            currentRuleUsed = $('reward_sales_rule').value;
+            if (!$('customerreward-payment-method')) {
+                return false;
+            }
+            if (disableRewardAjax) {
+                disableRewardAjax = false;
+                return false;
+            }
+            var params = Form.serializeElements($('cart-rewards-form').select('input, select, textarea'));
+            uniqueAjax.NewRequest({
+                method: 'post',
+                postBody: params,
+                parameters: params,
+                beforeRequest: function(){
+                    $('customerreward-payment-method').hide();
+                    $('customerreward-mask').show();
+                },
+                onException: function() {
+                    window.location.reload();
+                },
+                onComplete: function(xhr) {
+                    if (xhr.responseText.isJSON()) {
+                        var response = xhr.responseText.evalJSON();
+                        if (response.updatepayment) {
+                            $('checkout-payment-method-load').update(response.html);
+                        } else {
+                            $('customerreward-mask').hide();
+                            $('customerreward-payment-method').show();
+                        }
+                        if (typeof save_shipping_method == 'function') {
+                            save_shipping_method(shipping_method_url);
+                        }
+                    }
+                }
+            });
+        }
+        function showRewardInfo(elId) {
+            var elIds = ['customerreward-needmore-msg', 'customerreward-slider-container'];
+            for (var i = 0; i < 2; i++){
+                if (elIds[i] == elId) {
+                    $(elId).show();
+                } else {
+                    $(elIds[i]).hide();
+                }
+            }
+        }
+        // Initial Variables
+        $('customerreward-slider-container').show();
+        $('cart-rewards-form').show();
+        var rewardSlider = new PointSlider(
+            'reward_sales_point',
+            'customerreward-track',
+            'customerreward-handle',
+            'customerreward-slider-zoom-out',
+            'customerreward-slider-zoom-in',
+            ''
+        );
+        if ($('customerreward_payment_method').checked == false) {
+            $('cart-rewards-form').hide();
+        }
+        rewardSlider.changePointCallback = changePointCallback;
+        rewardSlider.changeUseMaxpointEvent('reward_max_points_used');
+        rewardSlider.manualChangePointEvent('reward_sales_point');
+        rewardSlider.changeRule = function(event) {
+            var ruleId = event.element().value;
+            if (ruleId) {
+                currentRuleOptions = rewardSliderRules[ruleId];
+                switch (currentRuleOptions.optionType) {
+                    case 'needPoint':
+                        showRewardInfo('customerreward-needmore-msg');
+                        $('customerreward-needmore-points').innerHTML = currentRuleOptions.needPoint;
+                        break;
+                    case 'slider':
+                        showRewardInfo('customerreward-slider-container');
+                        this.applyOptions(currentRuleOptions.sliderOption);
+                        break;
+                }
+            } else {
+                showRewardInfo('');
+            }
+        };
+        rewardSlider.changeRuleEvent = function(el) {
+            Event.observe($(el), 'change', this.changeRule.bind(this));
+        };
+        rewardSlider.changeRuleEvent('reward_sales_rule');
+        $('customerreward-slider-container').hide();
+        
+        var uniqueAjax = new UniqueAjax('<?php echo $this->getUrl('customerreward/checkout/changePointOsc') ?>');
+        disableRewardAjax = true;
+        changeRewardSalesRule($('reward_sales_rule'));
+    }
+    disableRewardAjax = true;
+    rewardSlider.manualChange(<?php echo $_sliderData->getUsePoint() ? $_sliderData->getUsePoint() : '0' ?>);
+    disableRewardAjax = false;
+    </script>
+            <?php endif ?>
+            <?php if (count($_checkboxRules)): ?>
+                <?php $_checkedData = $this->getCheckedData() ?>
+            <dt>
+                <?php if (count($_sliderRules)): ?>
+                <label><?php echo $this->__('More ways to spend points') ?>:</label>
+                <?php else: ?>
+                <label><?php echo $this->__('Choose ways to spend points') ?></label>
+                <?php endif ?>
+            </dt>
+            <dd>
+                <ul>
+                <?php foreach ($_checkboxRules as $_rule): ?>
+                    <li>
+                        <input type="checkbox" value="<?php echo $_rule->getId() ?>" name="sales_checkbox_rule[]" id="sales_checkbox_rule_<?php echo $_rule->getId() ?>" onchange="checkUseSalesRule(this)"<?php if (in_array($_rule->getId(), $_checkedData)): ?> checked="checked"<?php endif ?> />
+                        <label for="sales_checkbox_rule_<?php echo $_rule->getId() ?>" id="reward_rule_label_<?php echo $_rule->getId() ?>">
+                            <?php echo $this->__('Spend %s points', $_rule->getPointsSpended()) ?>
+                            <?php echo $this->__('and get %s off', $this->formatDiscount($_rule)) ?>
+                        </label>
+                    </li>
+                <?php endforeach ?>
+                </ul>
+                <div id="rule_refreshing_label" style="display: none;">
+                    <span class="rule_refreshing_label"><?php echo $this->__('Refreshing points, please wait') ?>...</span>
+                </div>
+            </dd>
+    <script type="text/javascript">
+        function checkUseSalesRule(el) {
+            var ruleId = el.value;
+            var params = 'rule_id=' + ruleId + '&is_used=';
+            if (el.checked) {
+                params += '1';
+            } else {
+                params += '0';
+            }
+            el.disabled = true;
+            var label = $('reward_rule_label_'+ruleId);
+            label.innerHTML = $('rule_refreshing_label').innerHTML;
+            var url = '<?php echo $this->getUrl('customerreward/checkout/checkboxRule') ?>';
+            if (window.location.href.match('https://') && !url.match('https://')) {
+                url = url.replace('http://', 'https://');
+            }
+            if (!window.location.href.match('https://') && url.match('https://')) {
+                url = url.replace('https://', 'http://');
+            }
+            new Ajax.Request(url, {
+                method: 'post',
+                postBody: params,
+                parameters: params,
+                onException: function() {
+                    window.location.reload();
+                },
+                onComplete: function() {
+                    if (typeof save_shipping_method == 'function') {
+                        save_shipping_method(shipping_method_url, enable_update_payment);
+                    }
+                }
+            });
+        }
+    </script>
+            <?php endif ?>
+        </dl>
+    </div>
+    </dd>
+<?php endif ?>
+<?php endif // end $this->enableReward() condition ?>
+
+<div id="customerreward-payment-method">
+	<?php $i=0;?>
+	<?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
+	<?php $i++;?>
+	<?php if($i != count($this->getMethods())):?>
+		<style type="text/css">
+			#advice-validate-one-required-by-name-p_method_<?php echo $_code ?>{
+				display: none !important;
+			}
+		</style>
+	<?php endif;?>
+		<dt>
+		<?php if( sizeof($this->getMethods()) > 1 ): ?>			
+				<input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="save_shipping_method(shipping_method_url);" <?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> class="radio validate-one-required-by-name" />
+		<?php else: ?>
+				<span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" class="radio validate-one-required-by-name " onclick="save_shipping_method(shipping_method_url);" /></span>
+		<?php endif; ?>
+				<label for="p_method_<?php echo $_code ?>"><?php echo $this->getMethodTitle($_method) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+		</dt>
+		<?php if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
+		<dd id="container_payment_method_<?php echo $_code; ?>" class="payment-method">
+				<?php echo $html; ?>
+		</dd>
+		<?php endif; ?>
+	<?php endforeach; ?>
+</div>
+<div id="customerreward-mask" style="display: none;">
+	<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading payment method...') ?>" title="<?php echo $this->__('Loading payment method...') ?>" class="v-middle" />
+	<?php echo $this->__('Loading payment method...') ?>
+</div>
+	</dl>
+</div>
+<div class="tool-tip" id="payment-tool-tip" style="display:none;">
+	<div class="btn-close"><a href="#" id="payment-tool-tip-close" title="<?php echo $this->__('Close') ?>"><?php echo $this->__('Close') ?></a></div>
+	<div class="tool-tip-content"><img src="<?php echo $this->getSkinUrl('images/cvv.gif') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" title="<?php echo $this->__('Card Verification Number Visual Reference') ?>" /></div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+$$('#checkout-payment-method-load dt input').invoke('observe', 'click', function(e) {
+    var element = e.element();
+    var name = 'payment_form_' + element.value;
+    
+    /* Hide all other forms */
+    $$('dd.payment-method').invoke('hide');
+    
+    if(element.checked) {
+        var form = $(name);
+        var container = $('container_payment_method_' + element.value);
+
+        if(element !== null && container !== null)    {
+            container.show();
+            $(name).show();
+        }
+    }    
+});
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+	function toggleToolTip(event){
+		if($('payment-tool-tip')){
+			$('payment-tool-tip').setStyle({
+				top: (Event.pointerY(event)-560)+'px'//,
+				//left: (Event.pointerX(event)+100)+'px'
+			})
+			$('payment-tool-tip').toggle();
+		}
+		Event.stop(event);
+	}
+	if($('payment-tool-tip-close')){
+		Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
+	}
+	
+	initWhatIsCvvListeners();
+<?php if ($customerrewardEnabled): ?>
+    changeUsePointAjaxRequest = new UniqueAjax('<?php echo $this->getUrl('customerreward/checkout/changeUsePointOsc') ?>');
+    function changeUsePointAjax(el) {
+        var params = '';
+        if (el.checked) params = 'use_point=1';
+        changeUsePointAjaxRequest.NewRequest({
+            method: 'post',
+            postBody: params,
+            parameters: params,
+            beforeRequest: function() {
+                $('cart-rewards-form').hide();
+                $('customerreward-payment-method').hide();
+                $('customerreward-mask').show();
+            },
+            onException: function() {
+                window.location.reload();
+            },
+            onComplete: function(xhr) {
+                if (xhr.responseText.isJSON()) {
+                    var response = xhr.responseText.evalJSON();
+                    if (response.updatepayment) {
+                        $('checkout-payment-method-load').update(response.html);
+                    } else {
+                        $('customerreward-mask').hide();
+                        if ($('customerreward_payment_method').checked)
+                            $('cart-rewards-form').show();
+                        $('customerreward-payment-method').show();
+                    }
+                    if (typeof save_shipping_method == 'function') {
+                        save_shipping_method(shipping_method_url);
+                    }
+                }
+            }
+        });
+    }
+    $('customerreward_payment_method').disabled = false;
+    $('cart-rewards-form').select('input', 'select', 'textarea', 'button').each(function(field) {field.disabled = false;});
+<?php endif ?>
+//]]>
+</script>

@@ -1,0 +1,33 @@
+<?php if ($this->isEnabled()) { ?>
+    <script type="text/javascript">
+        //<![CDATA[
+    <?php if (Mage::helper('customerreward')->getEarnConfig('newsletter') && Mage::helper('customerreward')->getDisplayConfig('newsletter')) { ?>  
+            if($('newsletter-validate-detail') && $('newsletter-validate-detail').down('.block-content') && $('newsletter-validate-detail').down('.block-content').down('.input-box')){
+                var eladd=$('newsletter-validate-detail').down('.block-content').down('.input-box');
+                eladd.insert({
+                    after: '<div class="customerreward-checkout-action"><?php echo $this->getRewardNewsletterInFo() ?>'+'<?php echo Mage::helper('customerreward')->getIcon() ?></div>'
+                });
+            }
+    <?php } ?>   
+
+    <?php if (Mage::helper('customerreward')->getEarnConfig('poll') && Mage::helper('customerreward')->getDisplayConfig('poll')) { ?>
+            if($('pollForm') && $('pollForm').down('.actions') && $('pollForm').down('.actions').down('.button')){
+                var eladd=$('pollForm').down('.actions').down('.button');
+                eladd.insert({
+                    before: '<div class="customerreward-checkout-action"><?php echo $this->getRewardPollInFo() ?>'+'<?php echo Mage::helper('customerreward')->getIcon() ?></div>'
+                });
+            }
+    <?php } ?>
+
+<?php if (Mage::helper('customerreward')->getEarnConfig('tag') && Mage::helper('customerreward')->getDisplayConfig('tag')) { ?>
+            var temp=$$('.box-tags');
+            if(temp[0] && temp[0].down('h2')){
+                var eladd=temp[0].down('h2');
+                eladd.insert({
+                    after: '<div class="customerreward-product-view"><div class="customerreward-checkout-action"><?php echo $this->getRewardTagProductInFo() ?>'+'<?php echo Mage::helper('customerreward')->getIcon() ?></div></div>'
+                });
+            }
+    <?php } ?>
+        //]]>
+    </script>
+<?php } ?>

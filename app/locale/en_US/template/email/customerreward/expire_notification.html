@@ -1,0 +1,53 @@
+<!--@subject Your points balance expiration @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"htmlescape var=$customer.name":"Customer Name",
+"var title":"Transaction title",
+"var amount":"Transaction amount",
+"var spent":"Transaction amount used",
+"var total":"Customer balance",
+"var expirationdays":"Expiration after days",
+"var expirationdate":"Expiration date",
+"store url=\"customer/account/\"":"Customer Account Url"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=""}}"><img src="{{skin url="images/logo_email.gif" _area='frontend'}}" alt="{{var store.getFrontendName()}}"  style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p><strong>Dear {{htmlescape var=$customer.name}}</strong>,<br/>
+                            We would like to inform you that your transaction will expire after {{var expirationdays}} day(s). It is also noted that if the duration of earned points is expiration your rewards will be invalid. You can check more details as below:</p>
+                            <p style="border:1px solid #BEBCB7; padding:13px 18px; background:#F8F7F5; ">
+                                <strong>The transaction detail:</strong><br/>
+                                <strong>Transaction title:</strong> {{var title}}<br/>
+                                <strong>Transaction amount:</strong> {{var amount}} point(s)<br/>
+                                <strong>Transaction amount used:</strong> {{var spent}} point(s)<br/>
+                                <strong>Current balance:</strong> {{var total}} point(s) <br/>
+                                <strong>Expire date:</strong> {{var expirationdate}}
+                            <p>
+                            <p>If you have any other questions, please feel free to contact us at <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> or call us at {{config path='general/store_information/phone'}} Monday - Friday, 8am - 5pm PST.</p>
+                            <p>Thanks again, <strong>{{var store.getFrontendName()}}</strong>!</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+        <customerreward translate="label" module="customerreward">
+            <class>separator-top</class>
+            <label>Customer Behavior Earning Rules</label>
+            <tab>magestore</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>300</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+				<earn translate="label">
+					<label>Customer Behavior Earning Rules</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+					<fields>
+						<initialize translate="label comment">
+							<label>Points earned for signing up</label>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</initialize>
+						<newsletter translate="label comment">
+							<label>Points earned for subscribing Newsletters</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</newsletter>
+						<review translate="label comment">
+							<label>Points earned for reviewing product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</review>
+						<review_limit translate="label comment">
+							<label>Max points earned for reviewing products</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>points per customer per day</comment>
+						</review_limit>
+						<tag translate="label comment">
+							<label>Points earned for tagging product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</tag>
+						<tag_limit translate="label comment">
+							<label>Max points earned for tagging product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>points per customer per day</comment>
+						</tag_limit>
+						<poll translate="label comment">
+							<label>Points earned for taking poll</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>34</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</poll>
+						<poll_limit translate="label comment">
+							<label>Max points earned for taking poll</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>36</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>points per customer per day</comment>
+						</poll_limit>
+					</fields>
+				</earn>
+            </groups>
+        </customerreward>
+    </sections>
+</config>

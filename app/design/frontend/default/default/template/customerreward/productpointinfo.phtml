@@ -1,0 +1,16 @@
+<?php
+if ($this->isEnabled() && Mage::helper('customerreward')->getEarnConfig('review') && Mage::helper('customerreward')->getDisplayConfig('review')) {
+    $_product = $this->getProduct();
+    if ($_product->getId()):
+        $ratingSummary = $_product->getRatingSummary();
+        if ($ratingSummary && $ratingSummary->getPrimaryId()):
+            ?>
+            <div class="customerreward-product-view">
+                <div class="customerreward-checkout-action"><?php echo $this->getRewardViewProductInFo(); ?>
+                </div>
+            </div>
+            <?php
+        endif;
+    endif;
+}
+?>

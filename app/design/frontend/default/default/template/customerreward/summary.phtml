@@ -1,0 +1,37 @@
+<?php
+	/**
+	 * View summary template
+	 */
+?>
+<div class="box-account box-info box-customerreward-summary">
+	<div class="box-head">
+		<h2><?php echo $this->__('Reward information') ?></h2>
+	</div>
+	<div class="info-summary">
+	<p><strong>
+		<?php echo $this->__('Your balance is<strong class="customerreward-money"> %s point(s)%s</strong>',$this->getBalance(),$this->getMoneyBalance()) ?>
+		<?php echo Mage::helper('customerreward')->getIcon() ?>
+	</strong></p>
+	<?php if ($this->showExchangeRate()): ?>
+	<p>
+		<strong><?php echo $this->__('Exchange rate:') ?></strong><br />
+		<?php echo $this->showExchangeRate() ?>
+	</p>
+	<?php endif ?>
+	<?php echo $this->getChildHtml('customerreward_orderrule') ?>
+	<?php if ($this->showLimit()): ?>
+	<p>
+		<strong><?php echo $this->__('Balance limitation:') ?></strong><br />
+		<?php echo $this->showLimit() ?>
+	</p>
+	<?php endif ?>
+	<?php if ($this->getExpirationDate()): ?>
+	<p class="last">
+		<strong><?php echo $this->__("Each transaction will be expired during %s day(s) since the date the transaction is created.",$this->getExpirationDate()) ?></strong><br />
+		<?php echo $this->__('View Transaction History to follow when the transaction expires.') ?>
+	</p>
+	<?php endif ?>
+	</div>
+	<div class="box-bottom">		
+	</div>
+</div>

@@ -28,13 +28,17 @@ class Magestore_Magenotification_Model_Magenotification extends Mage_Core_Model_
         if ($notificationXml && $notificationXml->item) 
 		{
             foreach ($notificationXml->item as $item) {
-                $noticeData[] = array(
+                $item_data = array(
                     'severity'      => (int)$item->severity,
                     'date_added'    => $this->getDate((string)$item->date_added),
                     'title'         => (string)$item->title,
                     'description'   => (string)$item->description,
                     'url'           => (string)$item->url,
+					'related_extensions' => (string)$item->related_extensions
                 );
+				if($this->allowGetFeed($item_data)){
+					$noticeData[] = $item_data;
+				}
             }
 			
 			if($noticeData) 
@@ -47,6 +51,35 @@ class Magestore_Magenotification_Model_Magenotification extends Mage_Core_Model_
         return $this;
     }	
 	
+	public function allowGetFeed($item)
+	{
+		if($item['related_extensions'] == null || $item['related_extensions'] == '0'){
+			return true;
+		}
+		
+        $modules = Mage::getConfig()->getNode('modules')->children();
+        foreach ($modules as $moduleName => $moduleInfo) {
+			if ($moduleName==='Mage_Adminhtml') {
+                continue;
+            }
+            if ($moduleName==='Magestore_Magenotification') {
+                continue;
+            }			
+			if(strpos('a'.$moduleName,'Magestore') == 0){
+				continue;
+			}
+			$extension_code = str_replace('Magestore_','',$moduleName);
+			$related_extensions  = explode(',',$item['related_extensions']);
+			if(count($related_extensions)){
+				foreach($related_extensions as $related_extension){
+					if($related_extension == $extension_code){
+						return true;
+					}
+				}
+			}
+        }	
+		return false;
+	}
 	
 	public function getLastUpdate()
 	{
@@ -73,7 +106,7 @@ class Magestore_Magenotification_Model_Magenotification extends Mage_Core_Model_
 	{
 		$lastTimeNotice = strtotime($this->getLastNotice()->getAddedDate());
 		
-		return Mage::getStoreConfig(self::XML_MAGESTORE_URL_PATH) .'/magenotification/service/getfeed/lastupdatetime/'. $lastTimeNotice;
+		return Mage::getStoreConfig(self::XML_MAGESTORE_URL_PATH) .'/magenotification/service/getfeed2/lastupdatetime/'. $lastTimeNotice;
 	}
 	
 	public function getNotificationData()

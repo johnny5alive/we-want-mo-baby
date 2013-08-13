@@ -1,0 +1,15 @@
+<?php
+/**
+ * Rewrite Cart Item template
+ * see (app\design\frontend\base\default\template\checkout\cart\item\default.phtml)
+ */
+
+if (version_compare(Mage::getVersion(), '1.6.0.0', '>=')) {
+    include 'default1600.phtml';
+} elseif (version_compare(Mage::getVersion(), '1.5.0.0', '>=')) {
+    include 'default1500.phtml';
+} elseif (version_compare(Mage::getVersion(), '1.4.2.0', '>=')) {
+    include 'default1420.phtml';
+} else {
+    include 'default1410.phtml';
+}

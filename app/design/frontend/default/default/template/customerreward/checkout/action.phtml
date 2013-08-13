@@ -1,0 +1,11 @@
+<?php
+	/**
+	 * Checkout action in sidebar template
+	 */
+?>
+<?php if ($this->isShow()): ?>
+<div class="customerreward-checkout-action">
+	<?php echo Mage::helper('customerreward')->getIcon() ?>
+	<?php echo $this->__('Checkout now to earn point(s)') ?>
+</div>
+<?php endif ?>

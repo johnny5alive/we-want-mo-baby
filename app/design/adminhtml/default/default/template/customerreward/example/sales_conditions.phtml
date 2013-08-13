@@ -1,0 +1,39 @@
+<?php
+$currency = Mage::getModel('directory/currency')->load(Mage::app()->getStore()->getBaseCurrencyCode());
+?>
+<div id="messages">
+    <ul class="messages">
+        <li class="notice-msg">
+            <ul>
+                <li><span><?php echo $this->__('Example "Conditions":') ?></span>
+                </li>
+            </ul>
+            <?php echo $this->__('If you want to apply the rule to order that has Subtotal over %s and Shipping to France, the condition is:', $currency->format(1000)) ?>
+            <div style="margin-left: 50px"> 
+                <img title="conditons" alt="conditons" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'customerreward/example/shoppingcart.png'; ?>">
+            </div>
+
+            <?php if (Mage::app()->getRequest()->getControllerName() == 'adminhtml_spending_sales') { ?>
+                </br>
+                <ul>
+                    <li><span><?php echo $this->__('Example "Spending Points":') ?></span>
+                    </li>
+                </ul>
+                <?php echo $this->__('1. If you want to give discount when Customers use an exact number of points, such as 5 points, then:') ?>
+                <div style="margin-left: 50px">              
+                    <?php echo $this->__('- Choose "Action": "Give discount for fixed X Points"') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "P oints (X)": 5') ?>
+                </div>
+                <?php echo $this->__('2. If you want to give discount for every 5 points Customers spend on order and limit the points they can use to be 15 points, then:') ?>
+                <div style="margin-left: 50px">              
+                    <?php echo $this->__('- Choose "Action": "Give discount for every X points"') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Points (X)": 5') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field " Max points can be spent by this rule": 15') ?>
+                </div>
+            <?php } ?>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,34 @@
+<?php
+/**
+ * Cart point box
+ * @see Magestore_Customerreward_Block_Adminhtml_Cart_Total
+ */
+?>
+<?php $_spendingPoint = $this->getSpendingPoint() ?>
+<?php $_earningPoints = $this->getEarningPoint() ?>
+<?php if ($_spendingPoint || $_earningPoints): ?>
+<?php if ($this->getColspan() == 1): ?><thead><?php endif ?>
+    <?php if ($_spendingPoint): ?>
+    <tr>
+        <td class="a-right" colspan="<?php echo $this->getColspan() ?>" style="<?php echo $this->getTotal()->getStyle() ?>">
+            <strong style="font-size: 13px;"><?php echo $this->__('Customer will spend') ?>:</strong>
+        </td>
+        <td class="a-right" style="min-width: 70px;<?php echo $this->getTotal()->getStyle() ?>">
+            <?php echo $_spendingPoint ?>
+            <?php echo $this->__('Points') ?>
+        </td>
+    </tr>
+    <?php endif ?>
+    <?php if ($_earningPoints): ?>
+    <tr>
+        <td class="a-right" colspan="<?php echo $this->getColspan() ?>" style="<?php echo $this->getTotal()->getStyle() ?>">
+            <strong style="font-size: 13px;"><?php echo $this->__('Customer will earn') ?>:</strong>
+        </td>
+        <td class="a-right" style="min-width: 70px;<?php echo $this->getTotal()->getStyle() ?>">
+            <?php echo $_earningPoints ?>
+            <?php echo $this->__('Points') ?>
+        </td>
+    </tr>
+    <?php endif ?>
+<?php if ($this->getColspan() == 1): ?></thead><?php endif ?>
+<?php endif ?>

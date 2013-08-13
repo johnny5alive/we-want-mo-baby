@@ -1,0 +1,38 @@
+<?php
+$currency = Mage::getModel('directory/currency')->load(Mage::app()->getStore()->getBaseCurrencyCode());
+?>
+<div id="messages">
+    <ul class="messages">
+        <li class="notice-msg">
+            <ul>
+                <li><span><?php echo $this->__('Example:') ?></span>
+                </li>
+            </ul>
+            <?php echo $this->__('1. If you want to apply the rule to a product that costs more than %s and has product brand Apple, the condition is:', $currency->format(200)) ?>
+            <div style="margin-left: 50px"> 
+                <img title="conditons" alt="conditons" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'customerreward/example/catalog_conditions.png'; ?>">
+            </div>
+
+            <?php if (Mage::app()->getRequest()->getControllerName() == 'adminhtml_spending_catalog') { ?>
+                <?php echo $this->__('2. If you want to configure for 5 points Customers spend on product:') ?>
+                <div style="margin-left: 50px">              
+                    <?php echo $this->__('- Choose "Action": "Spend X Points"') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Points (X)": 5') ?>
+                </div>
+                <?php echo $this->__('3. If you want to configure for 5 points Customers spend on every %s of product price and limit points monetary step to be 15 points, then:', $currency->format(200)) ?>
+                <div style="margin-left: 50px">              
+                    <?php echo $this->__('- Choose "Action": "Spend X Points for every Y amount of price"') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Points (X)": 5') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Money Step (Y)": 200') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Max points can be spent by this rule": 15') ?>
+                    </br>
+                    <?php echo $this->__('=> If the price of the product is %s, Customers can use 15 or 30 or 45 points to buy it.', $currency->format(800)) ?>
+                </div>
+            <?php } ?>
+        </li>
+    </ul>
+</div>

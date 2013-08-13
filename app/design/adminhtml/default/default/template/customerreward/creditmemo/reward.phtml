@@ -1,0 +1,40 @@
+<?php
+	/**
+	 * Refund form template
+	 */
+?>
+<?php if ($this->canRefundPoints()): ?>
+<p>
+	<label for="creditmemo_refund_points"><?php echo $this->__('Refund points that customer spend (%d Points)', $this->getMaxPointRefund()) ?></label>
+	<input type="text" name="creditmemo[refund_points]" value="<?php echo $this->getCurrentPoint() ?>" id="creditmemo_refund_points" class="input-text not-nagetive-amount" style="width: 60px; text-align: right; margin-left: 10px;" onchange="checkCreditmemoRefundPoints(this)" />
+    <script type="text/javascript">
+        function checkCreditmemoRefundPoints(el) {
+            var maxPoints = <?php echo $this->getMaxPointRefund() ? $this->getMaxPointRefund() : '0' ?>;
+            if (el.value < 0) {
+                el.value = 0;
+            }
+            if (el.value > maxPoints) {
+                el.value = maxPoints;
+            }
+        }
+    </script>
+</p>
+<?php endif ?>
+
+<?php if ($this->canRefundEarnedPoints()): ?>
+<p>
+    <label for="creditmemo_refund_earned_points"><?php echo $this->__('Get point that customer earned (%d Points)', $this->getMaxEarnedRefund()) ?></label>
+    <input type="text" name="creditmemo[refund_earned_points]" value="<?php echo $this->getMaxEarnedRefund() ?>" id="creditmemo_refund_earned_points" class="input-text not-nagetive-amount" style="width: 60px; text-align: right; margin-left: 10px;" onchange="checkCreditmemoRefundEarnedPoints(this)" />
+    <script type="text/javascript">
+        function checkCreditmemoRefundEarnedPoints(el) {
+            var maxPoints = <?php echo $this->getMaxEarnedRefund() ? $this->getMaxEarnedRefund() : '0' ?>;
+            if (el.value < 0) {
+                el.value = 0;
+            }
+            if (el.value > maxPoints) {
+                el.value = maxPoints;
+            }
+        }
+    </script>
+</p>
+<?php endif; ?>

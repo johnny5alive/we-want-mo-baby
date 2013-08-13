@@ -28,10 +28,14 @@ class Magestore_Magenotification_Block_Config_Extensionkeys
 			if((string)$moduleInfo->codePool != 'local'){
 				continue;
 			}
-			// if($moduleName != 'Magestore_Affiliate'){
-				// continue;
-			// }
-            $html .= $this->_getFieldHtml($element, $moduleName);
+			
+			if(isset($moduleInfo->nonecheckkey) && (string)$moduleInfo->nonecheckkey == 'true'){
+				continue;
+			}			
+			
+			$module_alias = (string)$moduleInfo->aliasName ? (string)$moduleInfo->aliasName : $moduleName;
+			
+            $html .= $this->_getFieldHtml($element, $moduleName, $module_alias);
             $html .= $this->_getInfoHtml($element, $moduleName);
             $html .= $this->_getDividerHtml($element, $moduleName);
         }
@@ -81,7 +85,7 @@ class Magestore_Magenotification_Block_Config_Extensionkeys
         return $field->toHtml();
     }	
 
-    protected function _getFieldHtml($fieldset, $moduleName)
+    protected function _getFieldHtml($fieldset, $moduleName, $module_alias)
     {
         $configData = $this->getConfigData();
         $path = 'magenotificationsecure/extension_keys/'.$moduleName; //TODO: move as property of form
@@ -92,7 +96,7 @@ class Magestore_Magenotification_Block_Config_Extensionkeys
         $field = $fieldset->addField($moduleName, 'text',
             array(
                 'name'          => 'groups[extension_keys][fields]['.$moduleName.'][value]',
-                'label'         => $moduleName,
+                'label'         => $module_alias,
                 'value'         => $data,
 				'style'         => 'width:688px;',
                 'inherit'       => isset($configData[$path]) ? false : true,
@@ -118,16 +122,7 @@ class Magestore_Magenotification_Block_Config_Extensionkeys
 											0,
 											Magestore_Magenotification_Model_Keygen::TRIAL_VERSION,
 											//Magestore_Magenotification_Model_Keygen::DEVELOPMENT,
-				)) || $helper->getDBResponseCode() < Magestore_Magenotification_Model_Keygen::NEW_DOMAIN_SUCCESS ){/*
-				//update license form
-				$additionalLicenseForm = Mage::getBlockSingleton('magenotification/adminhtml_license_updateform')
-										->setExtensionName($helper->getExtensionName($moduleName))
-										->setLicensekey($data)
-										->setCurrentLicenseType($licenseType)
-										->toHtml();
-			} elseif(in_array($licenseType,array(-1,0,Magestore_Magenotification_Model_Keygen::TRIAL_VERSION))){
-				//purchase license form
-			*/
+				)) || $helper->getDBResponseCode() < Magestore_Magenotification_Model_Keygen::NEW_DOMAIN_SUCCESS ){
 				$additionalLicenseForm = Mage::getBlockSingleton('magenotification/adminhtml_license_purchaseform')
 										->setExtensionName($helper->getExtensionName($moduleName))
 										->toHtml();				

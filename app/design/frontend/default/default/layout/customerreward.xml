@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/magestore/customerreward.css</stylesheet>
+            </action>
+			<action method="addJs"><script>magestore/customerreward/lightbox.js</script></action>
+        </reference>
+        <reference name="top.links">
+            <block type="customerreward/toplink" name="toplink-customerreward-myaccount"/>
+        </reference>
+        <reference name="cart_sidebar.extra_actions">
+            <block type="customerreward/checkout_action" name="checkout_action" template="customerreward/checkout/action.phtml" />
+        </reference>
+        <reference name="footer">
+            <block type="customerreward/rewardpointinfo" name="rewardpointinfo" template="customerreward/rewardpointinfo.phtml" />
+        </reference>
+    </default>
+    
+    <!-- Customer account -->
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="customerreward">
+                <name>customerreward</name>
+                <path>customerreward</path>
+                <label helper="customerreward/getCustomerrewardLabel" />
+            </action>
+        </reference>
+        <reference name="cart_sidebar">
+            <block type="core/text_list" name="cart_sidebar.extra_actions" as="extra_actions">
+                <block type="customerreward/checkout_action" name="checkout_action" template="customerreward/checkout/action.phtml" />
+            </block>
+        </reference>
+    </customer_account>
+	
+    <!--checkout_cart_index>
+          		<reference name="content">
+                 			<block type="customerreward/checkout_action" name="checkout_action" template="customerreward/checkout/action.phtml" before="-" />
+          		</reference>
+   	</checkout_cart_index-->
+    
+    <customerreward_index_index>
+        <update handle="customer_account" />
+        <reference name="head">
+            <action method="setTitle" translate="title" module="customerreward">
+                <title>My Rewards</title>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="customerreward/customerreward" name="customerreward" template="customerreward/customerreward.phtml">
+                <block type="customerreward/summary" name="customerreward_summary" template="customerreward/summary.phtml">
+                    <block type="customerreward/orderrule" name="customerreward_orderrule" template="customerreward/orderrule.phtml" />
+                </block>
+                <block type="customerreward/links" name="customerreward_links" template="customerreward/links.phtml"/>
+                <block type="customerreward/history" name="customerreward_history" template="customerreward/history.phtml"/>
+            </block>
+        </reference>
+    </customerreward_index_index>
+    
+    <!-- Totals in order -->
+    <sales_order_view>
+        <reference name="order_totals">
+            <block type="customerreward/sales_order_items" name="customerreward.sales.order.items" />
+            <block type="customerreward/sales_order_totals" name="customerreward.sales.order.totals" />
+            <block type="customerreward/sales_order_offer" name="customerreward.sales.order.offer" />
+            <block type="customerreward/sales_order_labels" name="customerreward.sales.order.labels" />
+        </reference>
+    </sales_order_view>
+    <sales_order_print>
+        <reference name="order_totals">
+            <block type="customerreward/sales_order_items" name="customerreward.sales.order.items" />
+            <block type="customerreward/sales_order_totals" name="customerreward.sales.order.totals" />
+            <block type="customerreward/sales_order_offer" name="customerreward.sales.order.offer" />
+        </reference>
+    </sales_order_print>
+    <sales_email_order_items>
+        <reference name="order_totals">
+            <block type="customerreward/sales_order_items" name="customerreward.sales.order.items" />
+            <block type="customerreward/sales_order_totals" name="customerreward.sales.order.totals" />
+            <block type="customerreward/sales_order_offer" name="customerreward.sales.order.offer" />
+        </reference>
+    </sales_email_order_items>
+	
+    <sales_order_invoice>
+        <reference name="invoice_totals">
+            <block type="customerreward/sales_order_items" name="customerreward.sales.order.items" />
+            <block type="customerreward/sales_order_totals" name="customerreward.sales.order.totals" />
+            <block type="customerreward/sales_order_offer" name="customerreward.sales.order.offer" />
+        </reference>
+    </sales_order_invoice>
+    <sales_order_printinvoice>
+        <reference name="invoice_totals">
+            <block type="customerreward/sales_order_items" name="customerreward.sales.order.items" />
+            <block type="customerreward/sales_order_totals" name="customerreward.sales.order.totals" />
+            <block type="customerreward/sales_order_offer" name="customerreward.sales.order.offer" />
+        </reference>
+    </sales_order_printinvoice>
+    <sales_email_order_invoice_items>
+        <reference name="invoice_totals">
+            <block type="customerreward/sales_order_items" name="customerreward.sales.order.items" />
+            <block type="customerreward/sales_order_totals" name="customerreward.sales.order.totals" />
+            <block type="customerreward/sales_order_offer" name="customerreward.sales.order.offer" />
+        </reference>
+    </sales_email_order_invoice_items>
+	
+    <sales_order_creditmemo>
+        <reference name="creditmemo_totals">
+            <block type="customerreward/sales_order_items" name="customerreward.sales.order.items" />
+            <block type="customerreward/sales_order_creditmemo_totals" name="customerreward.sales.order.totals" />
+            <block type="customerreward/sales_order_offer" name="customerreward.sales.order.offer" />
+        </reference>
+    </sales_order_creditmemo>
+    <sales_order_printcreditmemo>
+        <reference name="creditmemo_totals">
+            <block type="customerreward/sales_order_items" name="customerreward.sales.order.items" />
+            <block type="customerreward/sales_order_creditmemo_totals" name="customerreward.sales.order.totals" />
+            <block type="customerreward/sales_order_offer" name="customerreward.sales.order.offer" />
+        </reference>
+    </sales_order_printcreditmemo>
+    <sales_email_order_creditmemo_items>
+        <reference name="creditmemo_totals">
+            <block type="customerreward/sales_order_items" name="customerreward.sales.order.items" />
+            <block type="customerreward/sales_order_creditmemo_totals" name="customerreward.sales.order.totals" />
+            <block type="customerreward/sales_order_offer" name="customerreward.sales.order.offer" />
+        </reference>
+    </sales_email_order_creditmemo_items>
+    
+    <!-- Offer -->
+    <checkout_onepage_success>
+        <reference name="content">
+            <block type="customerreward/offer" name="customerreward.offer" after="-" template="customerreward/offer.phtml" />
+        </reference>
+    </checkout_onepage_success>
+    
+    <customerreward_index_offer>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-right.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="customerreward/offer_view" name="offer.view" template="customerreward/offer/view.phtml" />
+            <block type="customerreward/product" name="offerproduct" template="catalog/product/list.phtml">
+                <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                    <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>empty</layout>
+                    <count>6</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>one_column</layout>
+                    <count>5</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_left</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>two_columns_right</layout>
+                    <count>4</count>
+                </action>
+                <action method="addColumnCountLayoutDepend">
+                    <layout>three_columns</layout>
+                    <count>3</count>
+                </action>
+                <action method="setToolbarBlockName">
+                    <name>product_list_toolbar</name>
+                </action>
+            </block>
+        </reference>
+    </customerreward_index_offer>
+	
+    <!-- Email to friend -->
+    <customerreward_offer_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-right.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="customerreward/offer_index" name="customerreward.offer" after="-" template="customerreward/offer.phtml" />
+        </reference>
+    </customerreward_offer_index>
+    <customerreward_offer_email>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-right.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addJs">
+                <script>varien/product.js</script>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="customerreward/offer_email" name="customerreward.offer" after="-" template="customerreward/sendfriend.phtml" />
+        </reference>
+    </customerreward_offer_email>
+	
+    <catalog_product_view>
+        <reference name="head">
+            <action method="addJs">
+                <script>magestore/customerreward.js</script>
+            </action>
+        </reference>
+        <reference name="alert.urls">
+            <block type="customerreward/rewardpointinfo" name="customerreward.product.view" before="-" template="customerreward/productpointinfo.phtml" />
+        </reference>
+        <reference name="before_body_end">
+            <block type="customerreward/product_send" name="customerreward.product.send" after="-" template="customerreward/productsend.phtml" />
+        </reference>
+        <!-- fix for Magento 1.4.0.x -->
+        <block type="customerreward/product_view" name="customerreward.rewrite" />
+        <!-- add earned points for product -->
+        <reference name="product.info.extrahint">
+            <block type="customerreward/product_spend" name="rewardpoints.product.spendpoint" template="customerreward/product/spend.phtml" />
+            <block type="customerreward/product_earned" name="rewardpoints.product.earningpoint" template="customerreward/product/earned.phtml" />
+        </reference>
+    </catalog_product_view>
+    <checkout_cart_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>magestore/customerreward.js</script>
+            </action>
+        </reference>
+        <reference name="checkout.cart">
+            <action method="addItemRender"><type>default</type><block>customerreward/cart_item_renderer</block><template>customerreward/cart/item/default.phtml</template></action>
+            <action method="addItemRender"><type>simple</type><block>customerreward/cart_item_renderer</block><template>customerreward/cart/item/default.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>customerreward/cart_item_renderer_grouped</block><template>customerreward/cart/item/default.phtml</template></action>
+            <action method="addItemRender"><type>configurable</type><block>customerreward/cart_item_renderer_configurable</block><template>customerreward/cart/item/default.phtml</template></action>
+            <action method="addItemRender"><type>bundle</type><block>customerreward/cart_item_renderer_bundle</block><template>customerreward/cart/item/default.phtml</template></action>
+            <action method="addItemRender"><type>downloadable</type><block>customerreward/cart_item_renderer_downloadable</block><template>customerreward/cart/item/default.phtml</template></action>
+        </reference>
+        <reference name="checkout.cart.coupon">
+            <block type="customerreward/cart_point" name="customerreward.cart_point" template="customerreward/cart/point.phtml" />
+        </reference>
+    </checkout_cart_index>
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>magestore/customerreward.js</script>
+            </action>
+        </reference>
+    </checkout_onepage_index>
+    
+    <review_product_list>
+        <reference name="content">
+            <block type="customerreward/rewardpointinfo" name="customerreward.product.review" after="-" template="customerreward/reviewproductpointinfo.phtml" />
+        </reference>
+    </review_product_list>
+    
+    <customerreward_offer_view>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="customerreward/offer_view" name="customerreward.offerview" template="customerreward/offerview.phtml" />
+        </reference>
+    </customerreward_offer_view>
+	
+	<!-- by Hai.Ta -->
+	 <customerreward_index_yahoo>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/popup.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="customerreward/refer_yahoo" name="customerrewardrefer_yahoo" template="customerreward/contacts.phtml" />
+        </reference>
+    </customerreward_index_yahoo>
+    <customerreward_index_gmail>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/popup.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="customerreward/refer_gmail" name="customerreward_refer_gmail" template="customerreward/contacts.phtml" />
+        </reference>
+    </customerreward_index_gmail>
+    <!-- end -->
+</layout>

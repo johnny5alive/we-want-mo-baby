@@ -1,0 +1,62 @@
+<?php
+	/**
+	 * Order rule template
+	 */
+?>
+
+<?php $_catalogEarning = $this->getCatalogEarningRules() ?>
+<?php $_salesEarning = $this->getShoppingCartEarningRules() ?>
+
+<?php if (count($_catalogEarning) || count($_salesEarning)): ?>
+<p>
+    <strong><?php echo $this->__('How you can earn point(s)') ?></strong>
+    <br/>
+    <?php echo $this->getEarningRateHtml() ?>
+    <?php foreach ($_catalogEarning as $_rule): ?>
+        <span class="customerreward-rule-lbl"><?php echo $_rule->getName() ?></span>:
+        <span><?php echo $_rule->getDescription() ?></span>
+        <?php if ($_rule->getToDate()): ?>
+            <br/>
+            <?php echo $this->__('It is valid until %s', $this->formatDate($_rule->getToDate())) ?>
+        <?php endif ?>
+        <br/>
+    <?php endforeach ?>
+    <?php foreach ($_salesEarning as $_rule): ?>
+        <span class="customerreward-rule-lbl"><?php echo $_rule->getName() ?></span>:
+        <span><?php echo $_rule->getDescription() ?></span>
+        <?php if ($_rule->getToDate()): ?>
+            <br/>
+            <?php echo $this->__('It is valid until %s', $this->formatDate($_rule->getToDate())) ?>
+        <?php endif ?>
+        <br/>
+    <?php endforeach ?>
+</p>
+<?php endif ?>
+
+<?php $_catalogSpending = $this->getCatalogSpendingRules()  ?>
+<?php $_salesSpending = $this->getShoppingCartSpendingRules() ?>
+<?php if (count($_catalogSpending) || count($_salesSpending)): ?>
+<p>
+    <strong><?php echo $this->__('How you can spend point(s)') ?></strong>
+    <br/>
+    <?php echo $this->getSpendingRateHtml() ?>
+    <?php foreach ($_catalogSpending as $_rule): ?>
+        <span class="customerreward-rule-lbl"><?php echo $_rule->getName() ?></span>:
+        <span><?php echo $_rule->getDescription() ?></span>
+        <?php if ($_rule->getToDate()): ?>
+            <br/>
+            <?php echo $this->__('It is valid until %s', $this->formatDate($_rule->getToDate())) ?>
+        <?php endif ?>
+        <br/>
+    <?php endforeach ?>
+    <?php foreach ($_salesSpending as $_rule): ?>
+        <span class="customerreward-rule-lbl"><?php echo $_rule->getName() ?></span>:
+        <span><?php echo $_rule->getDescription() ?></span>
+        <?php if ($_rule->getToDate()): ?>
+            <br/>
+            <?php echo $this->__('It is valid until %s', $this->formatDate($_rule->getToDate())) ?>
+        <?php endif ?>
+        <br/>
+    <?php endforeach ?>
+</p>
+<?php endif ?>

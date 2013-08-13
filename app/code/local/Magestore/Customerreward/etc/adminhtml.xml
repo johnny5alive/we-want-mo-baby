@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<config>
+	<menu>
+		<customerreward module="customerreward">
+			<title>Reward Points</title>
+			<sort_order>71</sort_order>
+			<children>
+                <earning module="customerreward" translate="title">
+                    <title>Earning</title>
+                    <sort_order>10</sort_order>
+                    <children>
+                        <rate module="customerreward" translate="title">
+                            <title>Earning Rates</title>
+                            <sort_order>10</sort_order>
+                            <action>customerrewardadmin/adminhtml_rate/index/type/earn</action>
+                        </rate>
+                        <catalog module="customerreward" translate="title">
+                            <title>Catalog Earning Rules</title>
+                            <sort_order>20</sort_order>
+                            <action>customerrewardadmin/adminhtml_earning_catalog</action>
+                        </catalog>
+                        <sales module="customerreward" translate="title">
+                            <title>Shopping Cart Earning Rules</title>
+                            <sort_order>30</sort_order>
+                            <action>customerrewardadmin/adminhtml_earning_sales</action>
+                        </sales>
+                        <behavior module="customerreward" translate="title">
+                            <title>Behavior Earning Rules</title>
+                            <sort_order>40</sort_order>
+                            <action>customerrewardadmin/adminhtml_earning_behavior</action>
+                        </behavior>
+                    </children>
+                </earning>
+                <spending module="customerreward" translate="title">
+                    <title>Spending</title>
+                    <sort_order>20</sort_order>
+                    <children>
+                        <rate module="customerreward" translate="title">
+                            <title>Spending Rates</title>
+                            <sort_order>10</sort_order>
+                            <action>customerrewardadmin/adminhtml_rate/index/type/spending</action>
+                        </rate>
+                        <catalog module="customerreward" translate="title">
+                            <title>Catalog Spending Rules</title>
+                            <sort_order>20</sort_order>
+                            <action>customerrewardadmin/adminhtml_spending_catalog</action>
+                        </catalog>
+                        <sales module="customerreward" translate="title">
+                            <title>Shopping Cart Spending Rules</title>
+                            <sort_order>30</sort_order>
+                            <action>customerrewardadmin/adminhtml_spending_sales</action>
+                        </sales>
+                    </children>
+                </spending>
+				<offer module="customerreward" translate="title">
+					<title>Referring Friends</title>
+					<sort_order>30</sort_order>
+					<action>customerrewardadmin/adminhtml_offer</action>
+				</offer>
+				<transaction module="customerreward" translate="title">
+					<title>Transactions</title>
+					<sort_order>40</sort_order>
+					<action>customerrewardadmin/adminhtml_transaction</action>
+				</transaction>
+                <report module="customerreward" translate="title">
+                    <title>Reports</title>
+					<sort_order>50</sort_order>
+                    <children>
+                        <dashboard module="customerreward" translate="title">
+                            <title>Dashboard</title>
+                            <sort_order>10</sort_order>
+                            <action>customerrewardadmin/adminhtml_report_dashboard</action>
+                        </dashboard>
+                        <customer module="customerreward" translate="title">
+                            <title>Report Customer</title>
+                            <sort_order>20</sort_order>
+                            <action>customerrewardadmin/adminhtml_report_customer</action>
+                        </customer>
+                        <order module="customerreward" translate="title">
+                            <title>Report Order</title>
+                            <sort_order>30</sort_order>
+                            <action>customerrewardadmin/adminhtml_report_order</action>
+                        </order>
+                        <earnpoint module="customerreward" translate="title">
+                            <title>Report Earned Points</title>
+                            <sort_order>40</sort_order>
+                            <action>customerrewardadmin/adminhtml_report_earnpoint</action>
+                        </earnpoint>
+                        <spendpoint module="customerreward" translate="title">
+                            <title>Report Spend Points</title>
+                            <sort_order>50</sort_order>
+                            <action>customerrewardadmin/adminhtml_report_spendpoint</action>
+                        </spendpoint>
+                        
+                    </children>
+                </report>
+				<setting module="customerreward" translate="title">
+					<title>Settings</title>
+					<sort_order>60</sort_order>
+					<action>adminhtml/system_config/edit/section/customerreward</action>
+				</setting>
+			</children>
+		</customerreward>
+	</menu>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<customerreward translate="title">
+										<title>Reward Points</title>
+										<sort_order>40</sort_order>
+									</customerreward>
+								</children>
+							</config>
+						</children>
+					</system>				
+					<customerreward>
+						<title>Reward Points</title>
+						<sort_order>10</sort_order>
+						<children>
+                            <earning module="customerreward" translate="title">
+                                <title>Earning</title>
+                                <sort_order>10</sort_order>
+                                <children>
+                                    <rate module="customerreward" translate="title">
+                                        <title>Earning Rates</title>
+                                        <sort_order>10</sort_order>
+                                    </rate>
+                                    <catalog module="customerreward" translate="title">
+                                        <title>Catalog Earning Rules</title>
+                                        <sort_order>20</sort_order>
+                                    </catalog>
+                                    <sales module="customerreward" translate="title">
+                                        <title>Shopping Cart Earning Rules</title>
+                                        <sort_order>30</sort_order>
+                                    </sales>
+                                    <behavior module="customerreward" translate="title">
+                                        <title>Behavior Earning Rules</title>
+                                        <sort_order>40</sort_order>
+                                    </behavior>
+                                </children>
+                            </earning>
+                            <spending module="customerreward" translate="title">
+                                <title>Spending</title>
+                                <sort_order>20</sort_order>
+                                <children>
+                                    <rate module="customerreward" translate="title">
+                                        <title>Spending Rates</title>
+                                        <sort_order>10</sort_order>
+                                    </rate>
+                                    <catalog module="customerreward" translate="title">
+                                        <title>Catalog Spending Rules</title>
+                                        <sort_order>20</sort_order>
+                                    </catalog>
+                                    <sales module="customerreward" translate="title">
+                                        <title>Shopping Cart Spending Rules</title>
+                                        <sort_order>30</sort_order>
+                                    </sales>
+                                </children>
+                            </spending>
+                            <offer module="customerreward" translate="title">
+                                <title>Referring Friends</title>
+                                <sort_order>30</sort_order>
+                            </offer>
+                            <transaction module="customerreward" translate="title">
+                                <title>Transactions</title>
+                                <sort_order>40</sort_order>
+                            </transaction>
+                            <report module="customerreward" translate="title">
+                                <title>Reports</title>
+                                <sort_order>50</sort_order>
+                                <children>
+                                    <dashboard module="customerreward" translate="title">
+                                        <title>Dashboard</title>
+                                        <sort_order>10</sort_order>
+                                    </dashboard>
+                                    <customer module="customerreward" translate="title">
+                                        <title>Report Customer</title>
+                                        <sort_order>20</sort_order>
+                                    </customer>
+                                    <order module="customerreward" translate="title">
+                                        <title>Report Order</title>
+                                        <sort_order>30</sort_order>
+                                    </order>
+                                    <earnpoint module="customerreward" translate="title">
+                                        <title>Report Earned Points</title>
+                                        <sort_order>40</sort_order>
+                                    </earnpoint>
+                                    <spendpoint module="customerreward" translate="title">
+                                        <title>Report Spend Points</title>
+                                        <sort_order>50</sort_order>
+                                    </spendpoint>
+                                </children>
+                            </report>
+							<setting module="customerreward">
+								<title>Settings</title>
+								<sort_order>60</sort_order>
+							</setting>	
+						</children>
+					</customerreward>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

@@ -1,0 +1,20 @@
+<?php
+	/**
+	 * Send email to friend Template
+	 */
+?>
+<?php if ($this->isEnabled()): ?>
+<div class="customerreward-email-friend" id="customerrewad-email-friend">
+	<a href="<?php echo $this->getShareUrl() ?>" title="<?php echo $this->__('Share for Friend') ?>"><?php echo $this->__('Share for Friend') ?></a>
+	<?php echo Mage::helper('customerreward')->getIcon() ?>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+	$$('p.email-friend').each(function (el){
+		el.innerHTML = $('customerrewad-email-friend').innerHTML;
+	});
+	$('customerrewad-email-friend').hide();
+//]]>
+</script>
+<?php endif ?>

@@ -1,0 +1,568 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <magestore translate="label">
+            <label>Magestore Extension</label>
+            <sort_order>400</sort_order>
+        </magestore>
+    </tabs>
+
+	<sections>
+        <customerreward translate="label" module="customerreward">
+            <class>separator-top</class>
+            <label>Reward Points</label>
+            <tab>magestore</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>300</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+            	<!--extra translate="label">
+            		<label>Extra config</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>101</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+					<fields>
+						<info translate="label">
+            				<label>More information page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_cms_page</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+            			</info>
+					</fields>
+            	</extra-->
+				<refer translate="label">
+					<label>Refer friend configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>8</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+					<fields>
+						<coupon translate="label">
+							<label>Enable referring coupon</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment>If no, Customers can just refer using Link</comment>
+						</coupon>
+						<pattern>
+							<label>Coupon Code Pattern</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment><![CDATA[Pattern examples:<br/><strong>[A.8] : 8 alpha chars<br/>[N.4] : 4 numerics<br/>[AN.6] : 6 alphanumeric<br/>REWARD-[A.4]-[AN.6] : REWARD-ADFA-12NF0O</strong>]]></comment>
+						</pattern>
+						<enable translate="label">
+							<label>Enable earning points per sale</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>101</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</enable>
+						<uniqueclick translate="label">
+							<label>Enable earning points per unique click</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>112</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</uniqueclick>
+						<visit translate="label">
+							<label>Enable earning points per visit</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>118</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</visit>
+						
+						<!-- by Hai.Ta  8.4.2013 -->
+						<yahoo_app_id translate="label">
+                            <label>Yahoo Application ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </yahoo_app_id>
+                        <yahoo_consumer_key translate="label">
+                            <label>Yahoo Consumer Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>145</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </yahoo_consumer_key>
+                        <yahoo_consumer_secret translate="label">
+                            <label>Yahoo Consumer Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>150</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<a href="https://developer.apps.yahoo.com/dashboard/createKey.html" target="_bank">Register to Yahoo</a>]]>
+                            </comment>
+                        </yahoo_consumer_secret>
+                        <google_consumer_key translate="label">
+                            <label>Google Consumer Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>155</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </google_consumer_key>
+                        <google_consumer_secret translate="label">
+                            <label>Google Consumer Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>160</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<a href="https://www.google.com/accounts/ManageDomains" target="_bank">Register to Google</a>]]>
+                            </comment>
+                        </google_consumer_secret>						
+                        <fbapp_id translate="label">
+                            <label>Facebook Application ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>180</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fbapp_id>
+                        <fbapp_secret translate="label">
+                            <label>Facebook Application Secret</label>
+                            <frontend_type>text</frontend_type>			  
+                            <sort_order>190</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<a href="http://developers.facebook.com/setup/" target="_bank">Register to Facebook</a>]]>
+                            </comment>
+                        </fbapp_secret>
+						<sharing_subject translate="label">
+                            <label>Default Subject</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Used for sending Email</comment>
+                        </sharing_subject>
+						<sharing_message translate="label">
+                            <label>Default Shared Message</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Used for posting on Facebook, Twitter and Email</comment>
+                        </sharing_message>
+						<template>
+                            <label>Refer Friend Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>125</sort_order>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template>
+					</fields>					
+				</refer>
+				
+				<spend translate="label">
+					<label>Spend points for</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>7</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+					<fields>
+						<tax translate="label">
+							<label>Tax</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Allow using points for Tax</comment>
+						</tax>
+						<shipping translate="label">
+							<label>Shipping Fee</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Allow using points for Shipping Fee.</comment>
+						</shipping>
+						<shipping_tax translate="label">
+							<label>Shipping Tax</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Allow using points for Shipping Tax.</comment>
+						</shipping_tax>
+					</fields>
+				</spend>
+				
+				<earn translate="label">
+					<label>General Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+					<fields>
+						<!--invoice translate="label">
+							<label>Capture Online Using Point</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>90</sort_order>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</invoice-->
+                        <by_shipping translate="label">
+                            <label>Allow earning points by Shipping Fee</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>92</sort_order>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Only apply for Shopping cart earning rules</comment>
+                        </by_shipping>
+                        <orderstatus translate="label">
+							<label>Allow receiving points when order state is</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>95</sort_order>
+							<source_model>adminhtml/system_config_source_order_status</source_model>
+							<show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</orderstatus>
+						<cancel_orderstatus translate="label">
+							<label>Refund points when order state is</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>100</sort_order>
+							<source_model>adminhtml/system_config_source_order_status</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</cancel_orderstatus>
+						<expire translate="label">
+							<label>Points expire after Transaction date</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>112</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>day(s). Empty or zero is no limitation.</comment>
+						</expire>
+						<min translate="label">
+							<label>Minimum redeemable points</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>115</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Empty or zero is no limitation.</comment>
+						</min>
+						<max translate="label">
+							<label>Maximum allowed points of Customer's balance</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>118</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Empty or zero is no limitation.</comment>
+						</max>
+						<!-- <initialize translate="label">
+							<label>Initial Point(s)</label>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</initialize>
+						<newsletter translate="label">
+							<label>Sign-up for Newsletter</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</newsletter>
+						<review translate="label">
+							<label>Review product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</review>
+						<review_limit translate="label">
+							<label>Review product point(s) limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>point(s) per day</comment>
+						</review_limit>
+						<tag translate="label">
+							<label>Tag product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</tag>
+						<tag_limit translate="label">
+							<label>Tag product point(s) limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>point(s) per day</comment>
+						</tag_limit>
+						<poll translate="label">
+							<label>Participating in poll</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>34</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</poll>
+						<poll_limit translate="label">
+							<label>Participating in poll point(s) limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>36</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>point(s) per day</comment>
+						</poll_limit> -->
+					</fields>
+				</earn>
+				<email translate="label">
+					<label>Email notification</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>12</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+					<fields>
+						<enable translate="label">
+							<label>Enable email notification</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</enable>
+						<sender translate="label">
+							<label>Sender</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+						</sender>
+						<update_balance translate="label">
+							<label>Balance-updated Email template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</update_balance>
+						<transaction_expire translate="label">
+							<label>Point-expiration Email template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</transaction_expire>
+						<day_before translate="label">
+							<label>Auto Send reminder email before</label>
+							<frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>day(s)</comment>
+						</day_before>
+						<sendfriend translate="label">
+							<label>Refer-friend Email template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</sendfriend>
+					</fields>
+				</email>
+				<!--transaction translate="label">
+					<label>Transaction</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>18</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+					<fields>
+						<reset translate="label">
+							<label>Reset all transaction</label>
+							<frontend_model>customerreward/adminhtml_system_configuration_resetbutton</frontend_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>This action will be remove all transaction and set all customer's point(s) balance to zero that you can't recovery.</comment>
+						</reset>
+					</fields>
+				</transaction-->
+                <display translate="label">
+					<label>Display Point information</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>7</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+					<fields>
+                        <toplink translate="label comment">
+							<label>Show total points next to My account link</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</toplink>
+						<newsletter translate="label comment">
+							<label>Show collectible points of Newsletter</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</newsletter>
+						<review translate="label comment">
+							<label>Show collectible points of Review</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</review>
+						<poll translate="label comment">
+							<label>Show collectible points of Poll</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+						</poll>
+                        <product translate="label comment">
+                            <label>Show collectible points of Purchasing Product</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Display in Product page</comment>
+                        </product>
+                        <tag translate="label comment">
+                            <label>Show collectible points of Tag</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tag>
+                        <info translate="label">
+            				<label>More-information Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_cms_page</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+            			</info>
+					</fields>
+                </display>
+                <report translate="label">
+                    <label>Reward point report</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<!--charts translate="label">
+							<label>Enable Charts</label>
+                            <frontend_type>select</frontend_type>  
+							<source_model>adminhtml/system_config_source_yesno</source_model>                 
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+							<comment></comment>
+						</charts-->
+						<ytd_start translate="label">
+							<label>Year-To-Date Starts</label>
+							<frontend_type>select</frontend_type>
+							<frontend_model>adminhtml/report_config_form_field_ytdStart</frontend_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</ytd_start>
+						<mtd_start translate="label comment">
+							<label>Current Month Starts</label>
+							<frontend_type>select</frontend_type>
+							<frontend_model>adminhtml/report_config_form_field_mtdStart</frontend_model>
+							<comment>Select day of the month.</comment>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</mtd_start>
+					</fields>
+				</report>
+            </groups>
+        </customerreward>
+    </sections>
+</config>

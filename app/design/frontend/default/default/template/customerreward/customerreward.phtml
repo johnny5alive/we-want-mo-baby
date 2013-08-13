@@ -1,0 +1,16 @@
+<?php
+	/**
+	 * Customer Reward Template
+	 */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title">
+	<h1><?php echo $this->__('My Rewards') ?></h1>
+</div>
+
+<?php echo $this->getChildHtml() ?>
+
+<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="customerreward_setting">
+	<input type="checkbox" class="checkbox" name="is_notification" id="is_notification" value="1" <?php if ($this->getIsNotification()) echo 'checked'?> onchange="form.submit();" />
+	<label for="is_notification"><?php echo $this->__('Enable email notification') ?></label>
+</form>

@@ -1,0 +1,316 @@
+<?php
+	/**
+	 * Transaction history template
+	 */	 
+?>
+<?php $collection = $this->getCollection() ?>
+<?php if ($collection->getSize()): ?>
+<?php $isCouponUsed = Mage::helper('customerreward')->getReferConfig('coupon') ?>
+<div class="box-account box-info box-customerreward-links">
+	<div class="box-head">
+		<h2><?php echo $isCouponUsed ? $this->__('My Coupons') : $this->__('My Links') ?></h2>
+	</div>
+	<?php echo $this->getPagerHtml() ?>
+	<div class="">
+	<table class="data-table" id="transactions-links-new">
+		<col class="id" />
+		<col class="url" />
+		<col class="visits" />
+		<col class="uniqueclicks" />
+		<col class="is_active" />
+		<col class="from_date" />
+		<col class="to_date" />
+		<thead>
+			<tr>
+				<th><?php echo $this->__('ID') ?></th>
+			<?php if ($isCouponUsed): ?>
+				<th><?php echo $this->__('Coupon Code') ?></th>
+				<th><?php echo $this->__('Uses') ?></th>
+				<th><?php echo $this->__('Uses per Customer') ?></th>
+				<th><?php echo $this->__('Max uses') ?></th>
+			<?php else: ?>
+				<th><?php echo $this->__('Url') ?></th>
+				<th><?php echo $this->__('Visit(s)') ?></th>
+				<th><?php echo $this->__('Unique <br /> click(s)') ?></th>
+			<?php endif ?>
+				<th><?php echo $this->__('Active') ?></th>
+				<th><?php echo $this->__('Validate from') ?></th>
+				<th><?php echo $this->__('Expired at') ?></th>
+			<?php if (!$isCouponUsed): ?>
+				<th><?php echo $this->__('Action') ?></th>
+			<?php endif; ?>
+			</tr>
+			<tbody>
+				<?php foreach($collection as $item): ?>
+				<tr>
+					<td><?php echo $item->getId() ?></td>
+				<?php if ($isCouponUsed): ?>
+					<td><?php echo $item->getCoupon() ?></td>
+					<td><?php echo $item->getUsed() ?></td>
+					<td><?php echo $item->getUsesPerCustomer() ? $item->getUsesPerCustomer() : $this->__('Unlimited') ?></td>
+					<td><?php echo $item->getUsesPerCoupon() ? $item->getUsesPerCoupon() : $this->__('Unlimited') ?></td>
+				<?php else: ?>
+					<?php $url = $this->getShareUrl($item->getKey()) ?>
+					<td><?php echo $this->__('<a href="%s" title="%s">%s</a>',$url,$url,Mage::helper('core/string')->truncate($url,36)) ?></td>
+					<td><?php echo $item->getVisitCount() ?></td>
+					<td><?php echo $item->getUniqueClick() ?></td>
+				<?php endif ?>
+					<td><?php echo $item->getIsActive()?$this->__('Yes'):$this->__('No') ?></td>
+					<td><?php echo $item->getFromDate()?$this->getDayFormat($item->getFromDate()):'' ?></td>
+					<td><?php echo $item->getToDate()?$this->getDayFormat($item->getToDate()):'' ?></td>
+					<?php if (!$isCouponUsed): ?>
+						<td><a href="javascript::void()" onclick ="getBox('<?php echo $url ?>')"><?php echo $this->__('Share') ?></a></td>
+					<?php endif; ?>
+				</tr>
+				<?php endforeach ?>
+			</tbody>
+		</thead>
+	</table>
+	<div id="magestore-rewardpoint-popup" style="display:none">
+		<span class="magestore-rewardpoint-popup-title"><?php echo $this->__('Share link to friends')?></span>
+		<div id="magestore-rewardpoint-popup-close" title="<?php echo $this->__('Close') ?>"><?php echo $this->__('CLOSE[X]') ?></div>
+		<div class="magestore-rewardpoint-popup-main-content">
+			<ul class="magestore-rewardpoint-popup-social">
+				<!-- tab email -->
+				<li class="magestore-rewardpoint-popup-li email frist" id="magestore-rewardpoint-popup-li-email" onclick ="openForm('magestore-rewardpoint-popup-email-content', 'magestore-rewardpoint-popup-li-email')">
+					<div id="magestore-rewardpoint-popup-logo-email" class="step-title magestore-rewardpoint-popup-logo">
+						<span class="logo email-logo"></span>
+						<h3 style="margin-right: 38px; margin-top:2px;"><?php echo $this->__('Email') ?></h2>
+					</div>					
+				</li>				
+				<!-- tab facebook -->
+				<li class="magestore-rewardpoint-popup-li facebook" id="magestore-rewardpoint-popup-li-facebook" onclick ="openForm('magestore-rewardpoint-popup-facebook-content', 'magestore-rewardpoint-popup-li-facebook')">
+					<div id="magestore-rewardpoint-popup-logo-facebook" class="step-title magestore-rewardpoint-popup-logo">
+						<span class="logo facebook-logo"></span>
+						<h3 style="margin-right: 16px"><?php echo $this->__('Facebook') ?></h2>
+					</div>					
+				</li>				
+				<!-- tab twitter -->
+				<li class="magestore-rewardpoint-popup-li twitter" id="magestore-rewardpoint-popup-li-twitter" onclick ="openForm('magestore-rewardpoint-popup-twitter-content', 'magestore-rewardpoint-popup-li-twitter')">
+					<div id="magestore-rewardpoint-popup-logo-twitter" class="step-title magestore-rewardpoint-popup-logo"> 
+						<span class="logo twitter-logo"></span>
+						<h3 style="margin-right: 26px"><?php echo $this->__('Twitter') ?></h2>
+					</div>					
+				</li>				
+				<!-- tab google+ -->
+				<li class="magestore-rewardpoint-popup-li google last" id="magestore-rewardpoint-popup-li-google" onclick ="openForm('magestore-rewardpoint-popup-google-content', 'magestore-rewardpoint-popup-li-google')">
+					<div id="magestore-rewardpoint-popup-logo-gplus" class="step-title magestore-rewardpoint-popup-logo">
+						<span class="logo google-logo"></span>
+						<h3 style="margin-right: 23px"><?php echo $this->__('Google+') ?></h2>
+					</div>					
+				</li>
+			</ul>
+			<!-- content email form -->
+			<div id="magestore-rewardpoint-popup-email-content" style="display: none; clear: both;margin-left: 8px;margin-right: 11px;">
+				<form id="magestore-rewardpoint-popup-email-form" method="post" action="<?php echo $this->getUrl('*/*/email') ?>">
+					<ul class="form-list">
+						<li>
+							<label><?php echo $this->__('From') ?>:</label>&nbsp;
+								<a href="mailto:<?php echo $this->getAccountData()->getEmail() ?>"><?php echo $this->getAccountData()->getEmail() ?></a>
+						</li>
+						<li>
+							<label for="magestore-rewardpoint-popup-email-address"><?php echo $this->__("Enter your friends' emails separated by comma") ?>:</label>
+								<div class="input-box">
+									<input type="text" class="input-text required-entry" id="magestore-rewardpoint-popup-email-address" name="emails" style="width: 477px;" value="<?php //echo $this->getEmailFormData()->getEmails() ?>"/>
+								</div>
+						</li>
+						<li>
+							<span>
+								<?php echo $this->__("Or retrieve contacts from") ?>
+								<a href="#" onclick="retrieveContacts('gmail'); return false;" title="<?php echo $this->__('get contacts from gmail') ?>"><?php echo $this->__('Gmail') ?></a>,
+								<a href="#" onclick="retrieveContacts('yahoo'); return false;" title="<?php echo $this->__('get contacts from yahoo') ?>"><?php echo $this->__('Yahoo') ?></a>
+							</span>
+						</li>
+						<li>
+							<label for="magestore-rewardpoint-popup-email-subject"><?php echo $this->__("Subject") ?>:</label>
+							<div class="input-box">
+								<input type="text" class="input-text required-entry" id="magestore-rewardpoint-popup-email-subject" name="email_subject" style="width: 477px;" value="<?php echo $this->getEmailFormData()->getEmailSubject() ? $this->getEmailFormData()->getEmailSubject() : $this->getDefaultSubject() ?>"/>
+							</div>
+						</li>
+						<li>
+							<label for="magestore-rewardpoint-popup-email-content"><?php echo $this->__("Your message (use suggested or write your own)") ?>:</label>
+							<div class="input-box">
+								<textarea id="magestore-rewardpoint-popup-email-share-content" name="email_content" class="required-entry" style="height: 165px; width: 477px"><?php echo $this->getEmailFormData()->getEmailContent() ? $this->getEmailFormData()->getEmailContent() : $this->getDefaultSharingContent() ?></textarea>
+							</div>
+						</li>
+					</ul>
+					<div class="buttons-set">
+						<button class="button" title="<?php echo $this->__('Send Email') ?>" type="submit">
+							<span><span><?php echo $this->__('Send Email') ?></span></span>
+						</button>
+					</div>
+				</form>
+				<p></p>
+				<script type="text/javascript">
+                    new VarienForm('magestore-rewardpoint-popup-email-form',true);
+                    function retrieveContacts(mailSv){						
+                        var mailCfg = <?php echo $this->getJsonEmail() ?>;
+                        var popUrl = mailCfg[mailSv];						
+                        if (popUrl) popWin(popUrl,mailSv,getPopupPosition(500,360)+',resizable=yes,scrollbars=yes');
+                    }
+                </script>
+			</div>
+			<!-- content facebook form -->
+			<div id="magestore-rewardpoint-popup-facebook-content" style="display: none;clear: both;margin-left: 8px;margin-right: 11px;">
+				<ul class="message" id="magestore-rewardpoint-popup-facebook-msg" style="display:none;">
+					<li class="success-msg">
+						<ul><li><?php echo $this->__('This message has been posted successfully!') ?></li></ul>
+					</li>
+				</ul>
+				<form id="magestore-rewardpoint-popup-facebook-form" method="post">
+					<ul class="form-list">
+						<li>
+							<label for="magestore-rewardpoint-popup-facebook-content"><?php echo $this->__("Post on Facebook") ?>:</label>
+							<div class="input-box">
+								<textarea name="rewardpoint-facebook-value-cotent" id="magestore-rewardpoint-popup-facebook-share-content" class="required-entry" style="width: 477px"><?php echo $this->getDefaultSharingContent() ?></textarea>
+							</div>
+						</li>
+					</ul>
+						<div class="buttons-set">
+							<button type="button" class="button" title="<?php echo $this->__('Post on Facebook') ?>" onclick="postOnFacebook();">
+								<span><span><?php echo $this->__('Post on Facebook') ?></span></span>
+							</button>
+						</div>
+				</form>
+				<p></p>
+				<script type="text/javascript">
+                    var facebookForm = new VarienForm('magestore-rewardpoint-popup-facebook-form',true);
+                    function postOnFacebook(){
+                        if (facebookForm.validator.validate()){
+                            popWin('<?php echo $this->getFbLoginUrl() ?>','facebook',getPopupPosition(500,270)+',resizable=yes,scrollbars=yes');
+                        }
+                    }
+                </script>
+			</div>
+			<!-- content twitter form -->
+			<div id="magestore-rewardpoint-popup-twitter-content" style="display: none; clear: both;margin-left: 8px;margin-right: 11px;">
+				<ul class="form-list">
+					<li>
+						<label for="magestore-rewardpoint-popup-twitter-content"><?php echo $this->__("Your message (use suggested or write your own)") ?>:</label>
+						<div class="input-box">
+							<textarea id="magestore-rewardpoint-popup-twitter-share-content" class="required-entry" style="width: 477px"><?php echo $this->getDefaultSharingContent() ?></textarea>
+						</div>
+					</li>
+				</ul>
+				<div class="buttons-set">
+					<button class="button tweeter" title="<?php echo $this->__('Tweet') ?>" style="width: 80px" onclick="rewardpointpopupTweet();">
+						<span class="span" style="background-color: #eee;"><span>
+							<?php echo $this->__('Tweet') ?></span></span>
+					</button>
+				</div>
+				<p></p>
+				 <script type="text/javascript">
+                    function rewardpointpopupTweet(){
+                        var tweetUrl = 'https://twitter.com/intent/tweet?original_referer=<?php echo urlencode($this->getDefaultUrl()) ?>source=tweetbutton&text=';
+                        tweetUrl += encodeURIComponent($('magestore-rewardpoint-popup-twitter-share-content').value);
+                        popWin(tweetUrl,'tweet',getPopupPosition(480,320)+',resizable=yes,scrollbars=yes');
+                    }
+                </script>
+			</div>
+			<!-- content gplus form -->
+			<div id="magestore-rewardpoint-popup-google-content" style="display: none; margin-left: 100px;clear: both;">
+				<div id="magestore-rewardpoint-popup-opc-google-content" class="step a-item" style="display:none;">
+					<div class="google-plus-share">
+						<g:plus action="share" height="24" href="<?php echo $this->getDefaultUrl()?>"></g:plus>
+					</div>
+					<p></p>
+					<script type="text/javascript">
+					<?php //if ($this->isActiveTab('google')): ?>
+						(function() {
+							var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+								po.src = 'https://apis.google.com/js/plusone.js';
+								var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+						})();
+						var loadGooglePlus = false;
+					<?php //else: ?>
+						//var loadGooglePlus = true;
+					<?php //endif ?>
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">	
+		var rewardpoint = null;
+		Event.observe(window, 'load', function () {
+			rewardpoint = new Lightbox('magestore-rewardpoint-popup');	
+			Event.observe('bg_fade', 'click', function () {
+				rewardpoint.close();
+			}); 
+			Event.observe('magestore-rewardpoint-popup-close', 'click', function () {
+				rewardpoint.close();
+			});
+			Event.observe(window, 'resize', function () { 		
+				rewardpoint._centerWindow('magestore-rewardpoint-popup');
+			});
+			// rewardpoint.open();
+			
+		});
+		
+		//count for show content post
+		var count=0;
+		function getBox(string){
+			count ++;					
+			if (count == 1){
+				rewardpoint.open();				
+				openForm('magestore-rewardpoint-popup-facebook-content', 'magestore-rewardpoint-popup-li-facebook');
+				content_email = $('magestore-rewardpoint-popup-email-share-content').value;
+				content_face = $('magestore-rewardpoint-popup-facebook-share-content').value;
+				content_tiwtter = $('magestore-rewardpoint-popup-twitter-share-content').value;
+				$('magestore-rewardpoint-popup-email-share-content').value = content_email +" "+string;
+				$('magestore-rewardpoint-popup-facebook-share-content').value = content_face +" "+string;
+				$('magestore-rewardpoint-popup-twitter-share-content').value = content_tiwtter +" "+string;
+			}else{
+				rewardpoint.open();		
+			}						
+			url = '<?php echo  $this->getControllerSaveUrl();?>';
+			new Ajax.Request(url, {
+				method: 'post',
+				parameters: {url : string},
+				onSuccess: function() {				
+				}
+			});			
+		}	
+		
+		function openForm(idContent, idLogo){	
+			removeClass();		
+			$(idLogo).addClassName('active');			
+			$('magestore-rewardpoint-popup-email-content').style.display = "none";
+			$('magestore-rewardpoint-popup-facebook-content').style.display = "none";
+			$('magestore-rewardpoint-popup-twitter-content').style.display = "none";
+			$('magestore-rewardpoint-popup-google-content').style.display = "none";
+			$(idContent).style.display = "block";
+			if (idContent == 'magestore-rewardpoint-popup-google-content'){
+				$('magestore-rewardpoint-popup-opc-google-content').style.display = "block";				
+			}
+			rewardpoint._centerWindow('magestore-rewardpoint-popup');
+		}
+		
+		function removeClass(){
+			$('magestore-rewardpoint-popup-li-email').removeClassName('active');
+			$('magestore-rewardpoint-popup-li-facebook').removeClassName('active');
+			$('magestore-rewardpoint-popup-li-twitter').removeClassName('active');
+			$('magestore-rewardpoint-popup-li-google').removeClassName('active');
+		}
+	</script>
+	
+	<script type="text/javascript">			
+		function getPopupPosition(width,height){
+			var  screenX    = typeof window.screenX != 'undefined' ? window.screenX : window.screenLeft;
+			var	 screenY    = typeof window.screenY != 'undefined' ? window.screenY : window.screenTop;
+			var	 outerWidth = typeof window.outerWidth != 'undefined' ? window.outerWidth : document.body.clientWidth;
+			var	 outerHeight = typeof window.outerHeight != 'undefined' ? window.outerHeight : (document.body.clientHeight - 22);
+			var left = parseInt(screenX + ((outerWidth - width) / 2), 10);
+			var top = parseInt(screenY + ((outerHeight - height) / 2.5), 10);
+			return 'width='+width+',height='+height+',left='+left+',top='+top;
+		}
+	</script>
+	
+	<script type="text/javascript">decorateTable('transactions-links-new');</script>
+	
+	</div>
+	<?php echo $this->getPagerHtml() ?>
+	<div class="box-bottom">		
+	</div>
+</div>
+<?php endif ?>

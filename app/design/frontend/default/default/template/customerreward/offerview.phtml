@@ -1,0 +1,67 @@
+<?php
+	/**
+	 * Offer Reward Template
+	 */
+?>
+<?php $offer = $this->getOffer() ?>
+<?php if ($offer && $offer->getId()): ?>
+<?php $isDiscount = ($offer->getDiscountMethod() == Magestore_Customerreward_Helper_Offer::OFFER_METHOD_DISCOUNT) ?>
+<div class="customerreward-offer">
+	<div class="offer-head" style="height:36px !important;"></div>
+	<div class="offer-body">
+		<div class="offer-overview">
+			<div class="offer-overview-img left">
+				<img src="<?php echo $this->getImgSrc() ?>" />
+			</div>
+			<div class="offer-overview-description left">
+				<?php $titleDescription = $this->getTitleDescriptionHtml() ?>
+				<h3><?php echo $titleDescription['title']  ?></h3>
+				<p><?php echo $titleDescription['description'] ?></p>
+			</div>
+		</div>
+		<?php if ($offer->getToDate()): ?>
+		<div class="offer-validate" style="font-size:21px;">
+			<?php $discountTxt = $isDiscount?$this->__('discount'):$this->__('cash back') ?>
+			<?php echo $this->__('This deal is valid until <strong>%s</strong>',$this->getToDate($offer)) ?>
+		</div>
+		<?php endif ?>
+		<div class="offer-howto">
+			<div class="offer-question">
+				<h3><?php echo $this->__('How does this work?') ?></h3>
+				<?php $discountTxt = $isDiscount?$this->__('receive discount'):$this->__('receive reward points after buying') ?>
+				<p>
+					<?php echo $this->__('Click into <strong>Proceed</strong> button at below to view a list of products which you will %s.',$discountTxt,$discountTxt) ?>
+					<!--
+					<?php if (!$isDiscount): ?>
+					<?php echo $this->__('<span style="color:#A01012;"> Warning, you need to login to receive reward point!</span>') ?>
+					<?php endif ?>
+					-->
+				</p>
+			</div>
+			<div class="offer-contact">
+				<h3><?php echo $this->__('Question?') ?></h3>
+				<p><?php echo $this->__('Please feel free to contact us at <a href="mailto:%s">%s</a> or call us at %s Monday - Friday, 8am - 5pm PST.',$this->getConfigEmail(),$this->getConfigEmail(),$this->getConfigPhone()) ?></p>
+			</div>
+		</div>
+		<a href="<?php echo $this->getProceedUrl() ?>">
+			<div class="offer-proceed"><?php echo $this->__('Proceed >>') ?></div>
+			<div style="height:24px;"></div>
+		</a>
+	</div>
+	<div class="box-bottom"></div>
+</div>
+<?php else: ?>
+<div class="customerreward-offer">
+	<div class="offer-head" style="height:36px !important;"></div>
+	<div class="offer-body">
+		<a href="<?php echo $this->getBaseUrl() ?>">
+			<div class="offer-warning">
+				<?php echo $this->__('This deal is expired or does not exist.') ?><br />
+				<?php echo $this->__('Click this to go to %s.',$this->getStoreName()) ?>
+			</div>
+			<div style="height:24px;"></div>
+		</a>
+	</div>
+	<div class="box-bottom"></div>
+</div>
+<?php endif ?>

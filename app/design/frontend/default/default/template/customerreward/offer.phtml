@@ -1,0 +1,87 @@
+<?php
+	/**
+	 * Offer Reward Template
+	 */
+?>
+<?php $offer = $this->getOffer() ?>
+<?php $isCouponUsed = Mage::helper('customerreward')->getReferConfig('coupon') ?>
+<?php if ($offer && $offer->getId()): ?>
+<div class="customerreward-offer">
+	<div class="offer-head">
+		<h2><?php echo $offer->getTitle() ?></h2>
+	</div>
+	<div class="offer-body">
+		<div class="offer-description">
+			<?php echo $offer->getDescription() ?>
+			<?php echo $this->showEarnHtml() ?>
+		</div>
+		<div class="offer-share">
+			<div class="offer-share-left">
+				<div class="offer-exchange-description">
+					<?php echo $this->showDiscountHtml() ?>
+				</div>
+				<img src="<?php echo $this->getImageSrc($offer) ?>" />
+			</div>
+			<div class="offer-share-right">
+				<ul class="offer-share-list">
+					<li class="share-link">
+						<?php $share_url = $this->getShareUrl() ?>
+						<?php if ($isCouponUsed): ?>
+							<div class="share-link-title"><?php echo $this->__('Share your coupon code') ?></div>
+							<input type="text" value="<?php echo $this->getCouponCode() ?>" class="share-link-url" readonly="true" onclick="this.select();" />
+						<?php else: ?>
+							<div class="share-link-title"><?php echo $this->__('Share your link') ?></div>
+							<input type="text" value="<?php echo $share_url ?>" class="share-link-url" readonly="true" onclick="this.select();" />
+						<?php endif ?>
+					</li>
+					<?php if (!$isCouponUsed): ?>
+						<li class="share-facebook">
+							<a href="" onclick="popWin('http://www.facebook.com/sharer.php?u=<?php echo urlencode($share_url) ?>&t=<?php echo urlencode($offer->getTitle()) ?>','facebook','top:100,left:100,width=640,height=480,resizable=yes,scrollbars=yes')">
+								<?php echo $this->__('Share it on Facebook') ?>
+							</a>
+						</li>
+					<?php endif ?>
+					<li class="share-twitter">
+						<a href="" onclick="popWin('https://twitter.com/share?original_referer=<?php echo urlencode($share_url) ?>&source=tweetbutton&text=<?php echo urlencode($offer->getTitle()) ?><?php if ($isCouponUsed) echo urlencode(chr(10).$this->__('Coupon code: ').$this->getCouponCode().chr(10).$this->__('at')) ?>','tweeter','top:100,left:100,width=640,height=480,resizable=yes,scrollbars=yes')">
+							<?php echo $this->__('Tweet it') ?>
+						</a>
+					</li>
+					<li class="share-mail">
+						<a href="<?php echo $this->getEmailUrl($offer->getId(),$offer->getTitle(),$share_url,$this->getCouponCode()) ?>"><?php echo $this->__('Mail it') ?></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<?php if ($offer->getToDate()): ?>
+		<div class="offer-validate">
+			<?php echo $this->__('This offer is valid until <strong>%s</strong>',$this->getToDate($offer)) ?>
+		</div>
+		<?php endif ?>
+	</div>
+	<div class="box-bottom">
+	</div>
+</div>
+<?php endif ?>
+
+<?php $this->setIsReferal(1) ?>
+<?php $offer = $this->getOffer() ?>
+<?php if ($offer && $offer->getId()): ?>
+<div class="customerreward-offer">
+	<div class="offer-head">
+		<h2><?php echo $this->__('Rebate successful!') ?></h2>
+	</div>
+	<div class="offer-body">
+		<div class="offer-overview">
+			<img class="offer-rebate-img" src="<?php echo $this->getImageSrc($offer) ?>" />
+			<div class="offer-rebate-description">
+				<?php echo $this->showDiscountHtml() ?>
+				<?php if(!$isCouponUsed && $offer->getDiscountMethod() == Magestore_Customerreward_Helper_Offer::OFFER_METHOD_CASHBACK): ?>
+					<p><?php echo $this->__('Please go to My Account area to see your reward points.')?></p>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+	<div class="box-bottom">
+	</div>
+</div>
+<?php endif ?>

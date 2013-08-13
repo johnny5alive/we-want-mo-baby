@@ -1,0 +1,73 @@
+<?php
+$currency = Mage::getModel('directory/currency')->load(Mage::app()->getStore()->getBaseCurrencyCode());
+?>
+<div id="messages">
+    <ul class="messages">
+        <li class="notice-msg">
+
+            <?php if (Mage::app()->getRequest()->getControllerName() == 'adminhtml_earning_sales') { ?>
+                <ul>
+                    <li><span><?php echo $this->__('Example "Earning Points Action":') ?></span>
+                    </li>
+                </ul>
+
+                <?php echo $this->__('1. If you want to give Customers 5 points when purchasing, then:') ?>
+                <div style="margin-left: 50px">              
+                    <?php echo $this->__('- Choose "Action": "Give X points to customer"') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Points (X)": 5') ?>
+                </div>
+
+                <?php echo $this->__('2. If you want to give Customers 5 points for every %s spent and limit the points that Customers can earn to be 15, then:', $currency->format(200)) ?>
+                <div style="margin-left: 50px">              
+                    <?php echo $this->__('- Choose "Action": "Give X points for every Y amount spent"') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Points (X)": 5') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Money Step (Y)": 200 ') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Max points earned by this rule": 15') ?>
+                    </br>
+                    <?php echo $this->__('=> If Customers purchase an order of %s, they will earn 15 points.', $currency->format(800)) ?>
+                </div>
+
+                <?php echo $this->__('3. If you want to give Customers 5 points for every 10 quantity they order and limit the points that Customers can earn to be 15 points, then:') ?>
+                <div style="margin-left: 50px">              
+                    <?php echo $this->__('- Choose "Action": "Give X points for every Y qty purchased"') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Points (X)": 5') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Quantity (Y)": 10') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Max points earned by this rule": 15') ?>
+                    </br>
+                    <?php echo $this->__('=> If Customers purchase an order of 40 quantities, they will earn 15 points') ?>
+                </div>
+            <?php } ?>
+
+            <?php if (Mage::app()->getRequest()->getControllerName() == 'adminhtml_spending_sales') { ?>
+                <ul>
+                    <li><span><?php echo $this->__('Example "Update prices using the following information":') ?></span>
+                    </li>
+                </ul>
+                <div style="margin-left: 50px"> 
+                    <?php echo $this->__('- Choose "Action": "Fixed amount discount for whole cart" or "Percentage amount discount for whole cart"') ?>
+                    </br>
+                    <?php echo $this->__('- Fill in field "Discount Amount": 10') ?>
+                    </br>
+                    <?php echo $this->__('=> You will give for each X points (configured in tab Conditions) a discount of $10 or %s of order total.', $currency->format(10)) ?>
+                    </br>
+                </div>
+            <?php } ?>
+            </br>
+            <ul>
+                <li><span><?php echo $this->__('Example "Conditions":') ?></span>
+                </li>
+            </ul>
+            <?php echo $this->__('If you want to apply the rule to item having cost of product is greater than %s and brand of product is Apple, the condition is:', $currency->format(200)) ?>
+            <div style="margin-left: 50px"> 
+                <img title="conditons" alt="conditons" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'customerreward/example/catalog_conditions.png'; ?>">
+            </div>
+        </li>
+    </ul>
+</div>
